@@ -13,13 +13,16 @@ import PageTitle from '@containers/common/PageTitle';
 import EmptyState from '@containers/common/EmptyState';
 import RowTitle from '@containers/common/Table/components/RowTitle';
 
-import { formattedRole, headCells } from './helpers';
-import { StyledStatusBtn, StyledTableCell } from './styles';
+import { headCells } from './helpers';
+import { StyledTableCell } from './styles';
 
 const Users = () => {
   const dispatch = useAppDispatch();
 
   const { data: users, isLoading } = useAppSelector(selectUsers);
+
+  console.log('users', users);
+
   const deleteAction = useCallback((id: string) => {
     dispatch(deleteUser(id)).unwrap().finally(() => dispatch(getAllUsers()));
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,21 +39,16 @@ const Users = () => {
   return (
     <>
       <PageTitle title="Users" btnName="Add User" path={PAGE_ROUTES.ADD_USER} />
-
       {users.length ? (
         <StyledTable headCells={headCells}>
-          { users.map(({ id, email, firstName, lastName, username, isVerified, permissions }) => (
+          { users.map(({ id, email, dateJoined, name }) => (
             <StyledTableRow key={id}>
-              <StyledTableCell>
-                <RowTitle title={username} path={`/users/edit/${id}`} />
-              </StyledTableCell>
-              <StyledTableCell>{`${firstName} ${lastName}`}</StyledTableCell>
+              <StyledTableCell>{id}</StyledTableCell>
+              <StyledTableCell>{name}</StyledTableCell>
               <StyledTableCell>{email}</StyledTableCell>
-              <StyledTableCell>{ formattedRole(permissions)}</StyledTableCell>
+              <StyledTableCell>{dateJoined}</StyledTableCell>
               <StyledTableCell>
-                <StyledStatusBtn isVerified={isVerified}>
-                  {isVerified ? 'Active' : 'Pending'}
-                </StyledStatusBtn>
+                <RowTitle title="Edit" path={`/users/edit/${id}`} />
               </StyledTableCell>
               <StyledTableCell>
                 <DeleteBtn

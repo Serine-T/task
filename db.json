@@ -1,0 +1,8 @@
+{
+  "users": [
+    { "id": 1, "name": "John Doe", "email": "john.doe@example.com", "dateJoined": "2023-01-01" },
+    { "id": 2, "name": "Jane Smith", "email": "jane.smith@example.com", "dateJoined": "2023-01-10" },
+    { "id": 3, "name": "Alice Johnson", "email": "alice.johnson@example.com", "dateJoined": "2023-01-15" }
+  ],
+  "reports": []
+}

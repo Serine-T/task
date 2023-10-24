@@ -44,3 +44,14 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+FINAL BY ME
+Running the Mock API:
+## npm run start:mockapi
+
+Access the Mock API:
+Once the server is running, you can access the mock data at the following endpoints:
+Users: http://localhost:5000/users
+Reports: http://localhost:5000/reports
+

@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import TableCell from '@mui/material/TableCell';
 import StyledTable from '@containers/common/Table';
 import { StyledTableRow } from '@containers/common/Table/styled';
-import Checkbox from '@containers/common/Checkbox';
 import { StyledStack, StyledTableCell } from '@containers/common/StyledAddEditTables/styled';
 import { useAppDispatch, useAppSelector } from '@features/app/hooks';
 import { addUser, editUser } from '@features/users/actions';
@@ -17,16 +16,7 @@ import { selectUsers } from '@features/users/selectors';
 import ReusableFields from '@containers/common/Table/components/ReusableFields';
 import SubmitBtn from '@containers/common/Table/components/SubmitBtn';
 
-import {
-  AddUserSchema,
-  IAddUserForm,
-  checkboxRows,
-  inputsRows,
-  defaultValues,
-  formattingPayload,
-  formattingDefaultValue,
-  EditUserSchema,
-} from './helpers';
+import { IAddForm, AddSchema, inputsRows, defaultValues } from './helpers';
 
 interface IInputsTable {
   userInfo?: IUserInfo;
@@ -36,21 +26,15 @@ const InputsTable = ({ userInfo }: IInputsTable) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { actionLoading } = useAppSelector(selectUsers);
-  const ValidationSchema = userInfo ? EditUserSchema : AddUserSchema;
-  const methods = useForm<IAddUserForm>({
-    resolver: yupResolver(ValidationSchema as any),
-    defaultValues: userInfo ? formattingDefaultValue(userInfo) : defaultValues,
+  const methods = useForm<IAddForm>({
+    resolver: yupResolver(AddSchema as any),
+    defaultValues: userInfo || defaultValues,
   });
 
-  const {
-    handleSubmit,
-    setError,
-  } = methods;
+  const { handleSubmit, setError } = methods;
 
-  const onSubmit = (data: IAddUserForm) => {
-    const payload = formattingPayload(data);
-
-    dispatch(userInfo ? editUser(payload) : addUser(payload)).unwrap().then(() => {
+  const onSubmit = (data: IAddForm) => {
+    dispatch(userInfo ? editUser(data) : addUser(data)).unwrap().then(() => {
       navigate(PAGE_ROUTES.USERS);
     }).catch((e) => {
       if (e.message === 'User does not exist!') {
@@ -70,12 +54,12 @@ const InputsTable = ({ userInfo }: IInputsTable) => {
         >
           <StyledTable tableTitle="USER INFO" colSpan={2}>
             {inputsRows.map((item) => {
-              const { label, field } = item;
+              const { label } = item;
 
               return (
                 <StyledTableRow key={label}>
                   <StyledTableCell>
-                    {`${label}: ${userInfo && field !== 'password' ? '*' : ''}`}
+                    {label}
                   </StyledTableCell>
                   <TableCell>
                     <ReusableFields {...item} />
@@ -83,16 +67,6 @@ const InputsTable = ({ userInfo }: IInputsTable) => {
                 </StyledTableRow>
               );
             })}
-            {checkboxRows.map(({ label, field }) => (
-              <StyledTableRow key={label}>
-                <StyledTableCell>
-                  {`${label}:`}
-                </StyledTableCell>
-                <TableCell>
-                  <Checkbox name={`permissions[${field}]`} />
-                </TableCell>
-              </StyledTableRow>
-            ))}
           </StyledTable>
           <SubmitBtn actionLoading={actionLoading} />
         </StyledStack>
