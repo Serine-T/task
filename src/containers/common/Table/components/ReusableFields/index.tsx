@@ -6,17 +6,15 @@ import { useFormContext } from 'react-hook-form';
 import Input from '../../../Input';
 import Textarea from '../../../Textarea';
 import Checkbox from '../../../Checkbox';
-import ImageUpload from '../../../FileUploader';
 import ColorPickerInput from '../../../ColorPickerInput';
 import Select from '../../../Select';
 import { ISelectList } from './helpers';
 
 interface IReusableFields extends ValidFieldNames{
   selectList?: ISelectList[];
-  fileList?: string[];
 }
 
-function ReusableFields({ field, type, label, selectList, fileList }: IReusableFields) {
+function ReusableFields({ field, type, label, selectList }: IReusableFields) {
   const { formState: { errors }, register } = useFormContext();
 
   if (type === InputTypes.text) {
@@ -45,18 +43,6 @@ function ReusableFields({ field, type, label, selectList, fileList }: IReusableF
 
   if (type === InputTypes.checkbox) {
     return <Checkbox name={field as string} errorMessage={errors?.[field]?.message as string} />;
-  }
-
-  if (type === InputTypes.image) {
-    const isFile = !!fileList?.includes(field);
-
-    return (
-      <ImageUpload
-        name={field}
-        errorMessage={errors?.[field]?.message as string}
-        isFile={isFile}
-      />
-    );
   }
 
   if (type === InputTypes.colorPicker) {

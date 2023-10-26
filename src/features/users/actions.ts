@@ -3,17 +3,17 @@ import { http } from '@services/RequestService';
 import { customErrorHandling } from '@utils/errorHandler';
 import { AxiosData } from '@utils/types';
 
-import { IAddUserPayload, IUserInfo } from './types';
+import { IUserPayload, IUserInfo } from './types';
 
 const prefix = '/users';
 
-export const addUser = createAsyncThunk<void, IAddUserPayload, {
+export const addUser = createAsyncThunk<void, IUserPayload, {
   rejectValue: AxiosData;
 }>(
   'users/add',
   async (body, thunkAPI) => {
     try {
-      await http.post<IAddUserPayload>(prefix, body);
+      await http.post<IUserPayload>(prefix, body);
     } catch (error) {
       const errorInfo = customErrorHandling(error);
 
@@ -22,13 +22,14 @@ export const addUser = createAsyncThunk<void, IAddUserPayload, {
   },
 );
 
-export const getAllUsers = createAsyncThunk<IUserInfo[], void, {
+export const getAllUsers = createAsyncThunk<IUserInfo[], number, {
   rejectValue: AxiosData;
 }>(
   'users/all',
-  async (_, thunkAPI) => {
+  async (offset, thunkAPI) => {
     try {
-      const { data } = await http.get<IUserInfo[]>(prefix);
+      const limit = 2;
+      const { data } = await http.get<IUserInfo[]>(`${prefix}?_start=${offset}&_limit=${limit}`);
 
       return data;
     } catch (error) {
@@ -56,13 +57,13 @@ export const getUserById = createAsyncThunk<IUserInfo, string, {
   },
 );
 
-export const editUser = createAsyncThunk<void, IAddUserPayload, {
+export const editUser = createAsyncThunk<void, IUserPayload, {
   rejectValue: AxiosData;
 }>(
   'users/edit',
   async (body, thunkAPI) => {
     try {
-      await http.put<IAddUserPayload>(`${prefix}/${body.id}`, body);
+      await http.put<IUserPayload>(`${prefix}/${body.id}`, body);
     } catch (error) {
       const errorInfo = customErrorHandling(error);
 

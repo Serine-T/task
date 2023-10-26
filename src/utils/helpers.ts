@@ -1,14 +1,17 @@
-import {
-  AMAZON_S3_CDN_URL,
-} from './constants';
+import moment from 'moment';
+
 import { ISelectOptions } from './types';
+
+export const formattedDate = (date: string) => {
+  return (
+    moment(date).format('YYYY-MM-DD, HH:mm')
+  );
+};
 
 export const sleep = (delay = 0) =>
   new Promise((resolve) => {
     setTimeout(resolve, delay);
   });
-
-export const getCDNImagePath = (path: string) => `${AMAZON_S3_CDN_URL}/${path}`;
 
 export const camelCaseToSensativeCase = (text: string): string => {
   const result = text.replace(/([A-Z])/g, ' $1');

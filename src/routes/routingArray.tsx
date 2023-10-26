@@ -3,9 +3,9 @@ import Dashboard from '@containers/Dashboard';
 import NotFound from '@containers/NotFound';
 import Layout from 'src/Layout';
 import PAGE_ROUTES from '@routes/routingEnum';
+import AddUser from '@containers/Users/AddComponent';
+import EditUser from '@containers/Users/EditComponent';
 import Users from '@containers/Users';
-import AddUser from '@containers/Users/AddUser';
-import EditUser from '@containers/Users/EditUser';
 
 export const routingArray: RouteObject[] = [
   { path: '*', element: <NotFound /> },

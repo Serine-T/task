@@ -1,69 +1,75 @@
-import { memo, useCallback } from 'react';
-
-import StyledTable from '@containers/common/Table';
 import PAGE_ROUTES from '@routes/routingEnum';
-import { StyledTableRow } from '@containers/common/Table/styled';
-import DeleteBtn from '@containers/common/Table/components/TablesActions/DeleteAction';
 import { useAppDispatch, useAppSelector } from '@features/app/hooks';
-import { deleteUser, getAllUsers } from '@features/users/actions';
+import {
+  getAllUsers,
+} from '@features/users/actions';
 import { selectUsers } from '@features/users/selectors';
 import Loader from '@containers/common/Loader';
 import useMount from '@customHooks/useMount';
 import PageTitle from '@containers/common/PageTitle';
 import EmptyState from '@containers/common/EmptyState';
-import RowTitle from '@containers/common/Table/components/RowTitle';
+import Box from '@mui/material/Box';
 
-import { headCells } from './helpers';
-import { StyledTableCell } from './styles';
+import UsersTable from './UsersTable';
 
 const Users = () => {
   const dispatch = useAppDispatch();
-
   const { data: users, isLoading } = useAppSelector(selectUsers);
 
-  console.log('users', users);
+  // console.log('users.length', users.length, total);
 
-  const deleteAction = useCallback((id: string) => {
-    dispatch(deleteUser(id)).unwrap().finally(() => dispatch(getAllUsers()));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // // const limit = 2;
+  // const [offset, setOffset] = useState(2);
+  // // const [hasMoreItems, setHasMoreItems] = useState(users.length < total);
+  // const hasMoreItems = true;
+
+  // console.log('hasMoreItems', hasMoreItems);
+
+  // const fetchMoreData = () => {
+  //   // const newOffset = offset + limit;
+
+  //   console.log('fetchMoreData');
+
+  //   // setOffset(newOffset);
+  //   dispatch(getAllUsers(offset));
+  //   // setHasMoreItems(users.length + limit < total);
+  // };
+
+  // useMount(() => {
+  //   dispatch(getAllUsers(offset));
+  // });
+
+  // const [users, setUsers] = useState([]);
+  // const [hasMoreItems, setHasMoreItems] = useState(true);
+  // const [offset, setOffset] = useState(0);
+  // const limit = 2; // Since you've specified a limit of 2.
 
   useMount(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers(0)); // Fetch initial data when the component mounts
   });
+
+  // useEffect(() => {
+  //   console.log('offset', offset);
+  // }, [offset]);
+
+  // useEffect(() => {
+  //   console.log('users', users);
+  // }, [users]);
 
   if (isLoading) {
     return <Loader />;
   }
 
   return (
-    <>
+    <Box height="400px">
       <PageTitle title="Users" btnName="Add User" path={PAGE_ROUTES.ADD_USER} />
       {users.length ? (
-        <StyledTable headCells={headCells}>
-          { users.map(({ id, email, dateJoined, name }) => (
-            <StyledTableRow key={id}>
-              <StyledTableCell>{id}</StyledTableCell>
-              <StyledTableCell>{name}</StyledTableCell>
-              <StyledTableCell>{email}</StyledTableCell>
-              <StyledTableCell>{dateJoined}</StyledTableCell>
-              <StyledTableCell>
-                <RowTitle title="Edit" path={`/users/edit/${id}`} />
-              </StyledTableCell>
-              <StyledTableCell>
-                <DeleteBtn
-                  deleteAction={() => deleteAction(id)}
-                  questionText="Are you sure you want to delete this user ?"
-                />
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </StyledTable>
+        <UsersTable />
       ) : (
         <EmptyState text="You don’t have any users, please add new to proceed" />
       )}
-    </>
+    </Box>
   );
 };
 
-export default memo(Users);
+export default Users;

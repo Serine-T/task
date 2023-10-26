@@ -1,11 +1,9 @@
-import { memo } from 'react';
-
 import InputsTable from '../components/InputsTable';
 
-const AddUser = () => {
+const AddComponent = () => {
   return (
     <InputsTable />
   );
 };
 
-export default memo(AddUser);
+export default AddComponent;

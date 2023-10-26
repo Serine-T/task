@@ -2,13 +2,17 @@ export interface IState {
   isLoading: boolean;
   data: IUserInfo[];
   actionLoading: boolean;
+  total: number;
+  offset: number;
+  limit: number;
+  hasMoreItems: boolean;
 }
 
-export interface IAddUserPayload {
+export interface IUserPayload {
   id?: string;
   name: string;
   email: string;
-  dateJoined?: string;
+  dateJoined: string;
 }
 
 export interface IUserInfo {
