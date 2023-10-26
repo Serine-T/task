@@ -4,6 +4,7 @@ import { customErrorHandling } from '@utils/errorHandler';
 import { AxiosData } from '@utils/types';
 
 import { IUserPayload, IUserInfo } from './types';
+import { paginationLimit } from './contants';
 
 const prefix = '/users';
 
@@ -28,8 +29,9 @@ export const getAllUsers = createAsyncThunk<IUserInfo[], number, {
   'users/all',
   async (offset, thunkAPI) => {
     try {
-      const limit = 2;
-      const { data } = await http.get<IUserInfo[]>(`${prefix}?_start=${offset}&_limit=${limit}`);
+      const { data } = await http.get<IUserInfo[]>(
+        `${prefix}?_start=${paginationLimit * offset}&_limit=${paginationLimit}`,
+      );
 
       return data;
     } catch (error) {

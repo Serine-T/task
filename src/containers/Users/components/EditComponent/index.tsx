@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@features/app/hooks';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { selectUsers } from '@features/users/selectors';
 import { getUserById } from '@features/users/actions';
 import { IUserInfo } from '@features/users/types';
 
-import InputsTable from '../components/InputsTable';
+import InputsTable from '../InputsTable';
 
 const EditComponent = () => {
   const navigate = useNavigate();
@@ -35,4 +35,4 @@ const EditComponent = () => {
   );
 };
 
-export default memo(EditComponent);
+export default EditComponent;

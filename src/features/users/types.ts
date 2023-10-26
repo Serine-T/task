@@ -4,7 +4,6 @@ export interface IState {
   actionLoading: boolean;
   total: number;
   offset: number;
-  limit: number;
   hasMoreItems: boolean;
 }
 

@@ -3,8 +3,8 @@ import Dashboard from '@containers/Dashboard';
 import NotFound from '@containers/NotFound';
 import Layout from 'src/Layout';
 import PAGE_ROUTES from '@routes/routingEnum';
-import AddUser from '@containers/Users/AddComponent';
-import EditUser from '@containers/Users/EditComponent';
+import AddUser from '@containers/Users/components/AddComponent';
+import EditUser from '@containers/Users/components/EditComponent';
 import Users from '@containers/Users';
 
 export const routingArray: RouteObject[] = [

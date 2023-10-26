@@ -2,6 +2,7 @@ import { createSlice, current } from '@reduxjs/toolkit';
 
 import { IState } from './types';
 import { addUser, editUser, getAllUsers, getUserById } from './actions';
+import { paginationLimit } from './contants';
 
 const initialState: IState = {
   isLoading: true,
@@ -9,7 +10,6 @@ const initialState: IState = {
   total: 0,
   actionLoading: false,
   offset: 0,
-  limit: 2,
   hasMoreItems: true,
 };
 
@@ -18,20 +18,28 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     incrementOffset: (state) => {
-      state.offset += 2;
+      state.offset += paginationLimit;
+    },
+
+    resetUsers: (state) => {
+      state.offset = 0;
+      state.hasMoreItems = true;
+      state.data = [];
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllUsers.pending, (state) => {
-      state.isLoading = true;
+      if (!state.offset) {
+        state.isLoading = true;
+      }
     });
     builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
-      if (payload.length < state.limit) {
+      state.data = [...current(state.data), ...payload];
+      state.offset += 1;
+      state.isLoading = false;
+      if (payload.length < paginationLimit) {
         state.hasMoreItems = false;
       }
-
-      state.data = [...current(state.data), ...payload];
-      state.isLoading = false;
     });
     builder.addCase(getAllUsers.rejected, (state) => {
       state.isLoading = false;
@@ -69,6 +77,6 @@ const usersSlice = createSlice({
   },
 });
 
-export const { incrementOffset } = usersSlice.actions;
+export const { incrementOffset, resetUsers } = usersSlice.actions;
 
 export default usersSlice.reducer;
