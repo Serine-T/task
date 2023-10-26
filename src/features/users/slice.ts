@@ -1,13 +1,12 @@
 import { createSlice, current } from '@reduxjs/toolkit';
 
 import { IState } from './types';
-import { addUser, editUser, getAllUsers, getUserById } from './actions';
-import { paginationLimit } from './contants';
+import { addUser, editUser, getAllUsers, getAllUsersPagination, getUserById } from './actions';
+import { limit } from './contants';
 
 const initialState: IState = {
-  isLoading: true,
+  isLoading: false,
   data: [],
-  total: 0,
   actionLoading: false,
   offset: 0,
   hasMoreItems: true,
@@ -18,7 +17,7 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     incrementOffset: (state) => {
-      state.offset += paginationLimit;
+      state.offset += limit;
     },
 
     resetUsers: (state) => {
@@ -28,18 +27,28 @@ const usersSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getAllUsers.pending, (state) => {
+    builder.addCase(getAllUsersPagination.pending, (state) => {
       if (!state.offset) {
         state.isLoading = true;
       }
     });
-    builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
+    builder.addCase(getAllUsersPagination.fulfilled, (state, { payload }) => {
       state.data = [...current(state.data), ...payload];
       state.offset += 1;
       state.isLoading = false;
-      if (payload.length < paginationLimit) {
+      if (payload.length < limit) {
         state.hasMoreItems = false;
       }
+    });
+    builder.addCase(getAllUsersPagination.rejected, (state) => {
+      state.isLoading = false;
+    });
+
+    builder.addCase(getAllUsers.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getAllUsers.fulfilled, (state) => {
+      state.isLoading = false;
     });
     builder.addCase(getAllUsers.rejected, (state) => {
       state.isLoading = false;

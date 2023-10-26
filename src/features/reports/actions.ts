@@ -3,18 +3,17 @@ import { http } from '@services/RequestService';
 import { customErrorHandling } from '@utils/errorHandler';
 import { AxiosData } from '@utils/types';
 
-import { IUserPayload, IUserInfo } from './types';
-import { limit } from './contants';
+import { IReportPayload, IReportInfo } from './types';
 
-const prefix = '/users';
+const prefix = '/reports';
 
-export const addUser = createAsyncThunk<void, IUserPayload, {
+export const addReport = createAsyncThunk<void, IReportPayload, {
   rejectValue: AxiosData;
 }>(
-  'users/add',
+  'reports/add',
   async (body, thunkAPI) => {
     try {
-      await http.post<IUserPayload>(prefix, body);
+      await http.post<IReportPayload>(prefix, body);
     } catch (error) {
       const errorInfo = customErrorHandling(error);
 
@@ -23,13 +22,13 @@ export const addUser = createAsyncThunk<void, IUserPayload, {
   },
 );
 
-export const getAllUsersPagination = createAsyncThunk<IUserInfo[], number, {
+export const getAllReports = createAsyncThunk<IReportInfo[], void, {
   rejectValue: AxiosData;
 }>(
-  'users/allPagination',
-  async (offset, thunkAPI) => {
+  'reports/all',
+  async (_, thunkAPI) => {
     try {
-      const { data } = await http.get<IUserInfo[]>(`${prefix}?_start=${limit * offset}&_limit=${limit}`);
+      const { data } = await http.get<IReportInfo[]>(`${prefix}`);
 
       return data;
     } catch (error) {
@@ -40,13 +39,13 @@ export const getAllUsersPagination = createAsyncThunk<IUserInfo[], number, {
   },
 );
 
-export const getUserById = createAsyncThunk<IUserInfo, string, {
+export const getReportById = createAsyncThunk<IReportInfo, string, {
   rejectValue: AxiosData;
 }>(
-  'users/getUser',
+  'reports/getReport',
   async (id, thunkAPI) => {
     try {
-      const { data } = await http.get<IUserInfo>(`${prefix}/${id}`);
+      const { data } = await http.get<IReportInfo>(`${prefix}/${id}`);
 
       return data;
     } catch (error) {
@@ -57,13 +56,13 @@ export const getUserById = createAsyncThunk<IUserInfo, string, {
   },
 );
 
-export const editUser = createAsyncThunk<void, IUserPayload, {
+export const editReport = createAsyncThunk<void, IReportPayload, {
   rejectValue: AxiosData;
 }>(
-  'users/edit',
+  'reports/edit',
   async (body, thunkAPI) => {
     try {
-      await http.put<IUserPayload>(`${prefix}/${body.id}`, body);
+      await http.put<IReportPayload>(`${prefix}/${body.id}`, body);
     } catch (error) {
       const errorInfo = customErrorHandling(error);
 
@@ -72,29 +71,13 @@ export const editUser = createAsyncThunk<void, IUserPayload, {
   },
 );
 
-export const deleteUser = createAsyncThunk<void, string, {
+export const deleteReport = createAsyncThunk<void, string, {
   rejectValue: AxiosData;
 }>(
-  'users/delete',
+  'reports/delete',
   async (id, thunkAPI) => {
     try {
       await http.delete(`${prefix}/${id}`);
-    } catch (error) {
-      const errorInfo = customErrorHandling(error);
-
-      return thunkAPI.rejectWithValue(errorInfo);
-    }
-  },
-);
-export const getAllUsers = createAsyncThunk<IUserInfo[], void, {
-  rejectValue: AxiosData;
-}>(
-  'users/all',
-  async (_, thunkAPI) => {
-    try {
-      const { data } = await http.get<IUserInfo[]>(`${prefix}`);
-
-      return data;
     } catch (error) {
       const errorInfo = customErrorHandling(error);
 

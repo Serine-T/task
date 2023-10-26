@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,52 +11,73 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@features/app/hooks';
 import SubmitBtn from '@containers/common/Table/components/SubmitBtn';
 import RowComponent from '@containers/common/Table/components/RowComponent';
-import { IUserInfo } from '@features/users/types';
-import { selectUsers } from '@features/users/selectors';
-import { addUser, editUser } from '@features/users/actions';
+import { IReportInfo } from '@features/reports/types';
+import { selectReports } from '@features/reports/selectors';
+import { addReport, editReport } from '@features/reports/actions';
+import useMount from '@customHooks/useMount';
+import { getAllUsers } from '@features/users/actions';
+import { getOptionsArray } from '@utils/helpers';
+import { ISelectOptions } from '@utils/types';
 
 import { AddDataSchema, IAddDataForm, inputsRows, defaultValues, formattedPayload } from './helpers';
 
 interface IInputsTable{
-  usersInfo?: IUserInfo;
+  reportsInfo?: IReportInfo;
 }
 
-const InputsTable = ({ usersInfo }: IInputsTable) => {
+const InputsTable = ({ reportsInfo }: IInputsTable) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { actionLoading } = useAppSelector(selectUsers);
+  const { actionLoading } = useAppSelector(selectReports);
   const methods = useForm<IAddDataForm>({
     resolver: yupResolver(AddDataSchema),
-    defaultValues: usersInfo ?? defaultValues,
+    defaultValues: reportsInfo ?? defaultValues,
   });
 
+  const [usersList, setUsersList] = useState<ISelectOptions[]>([]);
+
   const { handleSubmit } = methods;
+
+  useMount(() => {
+    dispatch(getAllUsers()).unwrap().then((data) => {
+      const newList = getOptionsArray(data);
+
+      setUsersList(newList);
+    }).catch(() => {});
+  });
 
   const onSubmit = (data: IAddDataForm) => {
     const payload = formattedPayload(data);
 
-    dispatch(usersInfo ? editUser(payload) : addUser(payload)).unwrap().then(() => {
-      navigate(PAGE_ROUTES.USERS);
+    dispatch(reportsInfo ? editReport(payload) : addReport(payload)).unwrap().then(() => {
+      navigate(PAGE_ROUTES.REPORTS);
     }).catch((e) => {
-      console.log('ee', e); // TODO: remove
-      navigate(PAGE_ROUTES.USERS);
+      console.log(e); // TODO
+
+      navigate(PAGE_ROUTES.REPORTS);
     });
   };
 
   return (
     <TitlesWithBackButton
-      title={usersInfo ? 'Edit User' : 'Add User'}
-      path="USERS"
+      title={reportsInfo ? 'Edit Report' : 'Add Report'}
+      path="REPORTS"
     >
       <FormProvider {...methods}>
         <StyledStack
           onSubmit={handleSubmit(onSubmit)}
           component="form"
         >
-          <StyledTable tableTitle="USERS" colSpan={2}>
+          <StyledTable tableTitle="REPORTS" colSpan={2}>
             {inputsRows.map((item) => (
               <RowComponent key={item.label} {...item}>
-                <ReusableFields {...item} />
+                <ReusableFields
+                  {...item}
+                  selectList={[{
+                    field: 'userId',
+                    options: usersList,
+                  }]}
+                />
               </RowComponent>
             ))}
           </StyledTable>

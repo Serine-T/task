@@ -10,8 +10,9 @@ interface IEmptyState {
 const EmptyState = ({ text }: IEmptyState) => (
   <StyledTitleBox>
     <StyledTypography variant="h6" color="grey">
-      {text}
+      {`You don’t have any ${text}, please add new to proceed `}
     </StyledTypography>
+
   </StyledTitleBox>
 );
 

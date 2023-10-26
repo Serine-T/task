@@ -42,7 +42,7 @@ export const getOptionsArray = (
 ): ISelectOptions[] => {
   return items.map((item) => ({
     value: item.id,
-    optionName: fieldName ? item[fieldName] : item.title,
+    optionName: fieldName ? item[fieldName] : item.name,
   }));
 };
 

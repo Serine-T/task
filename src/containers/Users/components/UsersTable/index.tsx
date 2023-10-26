@@ -5,7 +5,7 @@ import StyledTable from '@containers/common/Table';
 import { StyledTableRow } from '@containers/common/Table/styled';
 import DeleteBtn from '@containers/common/Table/components/TablesActions/DeleteAction';
 import { useAppDispatch, useAppSelector } from '@features/app/hooks';
-import { deleteUser, getAllUsers } from '@features/users/actions';
+import { deleteUser, getAllUsersPagination } from '@features/users/actions';
 import { selectUsers } from '@features/users/selectors';
 import Loader from '@containers/common/Loader';
 import RowTitle from '@containers/common/Table/components/RowTitle';
@@ -21,13 +21,13 @@ const UsersTable = () => {
   const { data: users, isLoading, offset, hasMoreItems } = useAppSelector(selectUsers);
   const deleteAction = useCallback((id: string) => {
     dispatch(deleteUser(id)).unwrap().finally(() => {
-      dispatch(incrementOffset());
-      dispatch(getAllUsers(offset));
+      dispatch(incrementOffset()); // TODO: test the logic
+      dispatch(getAllUsersPagination(offset));
     });
   }, [dispatch, offset]);
 
   const fetchMoreData = async () => {
-    dispatch(getAllUsers(offset));
+    dispatch(getAllUsersPagination(offset));
   };
 
   if (isLoading) {
@@ -55,10 +55,7 @@ const UsersTable = () => {
                 <RowTitle title="Edit" path={`/users/edit/${id}`} />
               </StyledTableCell>
               <StyledTableCell>
-                <DeleteBtn
-                  deleteAction={() => deleteAction(id)}
-                  questionText="Are you sure you want to delete this user ?"
-                />
+                <DeleteBtn deleteAction={() => deleteAction(id)} />
               </StyledTableCell>
             </StyledTableRow>
           ))}

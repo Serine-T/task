@@ -6,15 +6,14 @@ import StyledTypography from '../../../../StyledTypography';
 import confirmOptionsDialog from '../../../../Confirm';
 
 interface IDeleteAction {
-  questionText: string;
   deleteAction: ()=> void;
 }
 
-const DeleteBtn = ({ questionText, deleteAction }: IDeleteAction) => {
+const DeleteBtn = ({ deleteAction }: IDeleteAction) => {
   const confirm = useConfirm();
   const handleDelete = async () => {
     try {
-      await confirm(confirmOptionsDialog({ questionText }));
+      await confirm(confirmOptionsDialog({ questionText: 'Are you sure you want to delete this item ?' }));
       await deleteAction();
     } catch { }
   };
@@ -26,6 +25,7 @@ const DeleteBtn = ({ questionText, deleteAction }: IDeleteAction) => {
       color="blue"
       cursor="pointer"
       variant="body3"
+      underLine
     >
       Delete
     </StyledTypography>

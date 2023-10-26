@@ -1,76 +1,19 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "rrJohn Doe1frerf",
-      "email": "john.doe@example.com33",
-      "dateJoined": "2023-01-01"
-    },
-    {
-      "id": 2,
-      "name": "Jane Smith",
-      "email": "jane.smith@example.com",
-      "dateJoined": "2023-10-25T08:31:43.513Z"
-    },
-    {
-      "id": 3,
-      "name": "Alice Johnson",
-      "email": "alice.johnson@example.com",
-      "dateJoined": "2023-01-15"
-    },
-    {
-      "name": "frfr",
-      "email": "frf",
-      "id": 5
-    },
-    {
-      "name": "3e3e",
-      "email": "serine.tovmasyan@brainstormtech.io",
-      "dateJoined": "2023-10-25T10:49:05.297Z",
-      "id": 6
-    },
-    {
-      "name": "erer",
-      "email": "admin@gmail.com",
-      "dateJoined": "2023-10-25T10:49:09.793Z",
-      "id": 7
-    },
-    {
-      "name": "efef",
-      "email": "ferili2274@mitigado.com",
-      "dateJoined": "2023-10-25T10:49:17.008Z",
-      "id": 8
-    },
-    {
-      "name": "rfrf",
-      "email": "regarox660@meidecn.com",
-      "dateJoined": "2023-10-25T10:49:24.248Z",
-      "id": 9
-    },
-    {
-      "name": "rfrf",
-      "email": "kowey80338@imdutex.com",
-      "dateJoined": "2023-10-25T10:49:29.048Z",
-      "id": 10
-    },
-    {
-      "name": "rfrf",
-      "email": "lotiv33081@jthoven.com",
-      "dateJoined": "2023-10-25T10:49:36.416Z",
-      "id": 11
-    },
-    {
-      "name": "ooo",
-      "email": "oo@fef.eld",
-      "dateJoined": "2023-10-25T10:49:48.903Z",
-      "id": 12
-    },
-    {
-      "name": "ytyr",
+      "name": "ttt",
       "email": "yg@fcfc.ll",
-      "dateJoined": "2023-10-26T16:52:51.992Z",
-      "id": 13
+      "dateJoined": "2023-10-26T20:21:56.137Z",
+      "id": 1
     }
   ],
-  "reports": []
+  "reports": [
+    {
+      "userId": "8",
+      "content": "kmk",
+      "title": "hygy",
+      "dateCreated": "2023-10-26T19:54:16.527Z",
+      "id": 1
+    }
+  ]
 }
