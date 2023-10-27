@@ -10,7 +10,6 @@ import { getUserById } from '@features/users/actions';
 import { IUserInfo } from '@features/users/types';
 
 import InputsTable from '../InputsTable';
-import UserReports from '../UserReports';
 
 const EditComponent = () => {
   const navigate = useNavigate();
@@ -32,10 +31,7 @@ const EditComponent = () => {
   return (
     <>
       {usersInfo && (
-        <>
-          <InputsTable usersInfo={usersInfo} />
-          <UserReports />
-        </>
+      <InputsTable usersInfo={usersInfo} />
       )}
     </>
   );

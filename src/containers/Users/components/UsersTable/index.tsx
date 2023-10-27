@@ -1,33 +1,29 @@
-import { memo, useCallback } from 'react';
+import { memo, useState } from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import StyledTable from '@containers/common/Table';
-import { StyledTableRow } from '@containers/common/Table/styled';
-import DeleteBtn from '@containers/common/Table/components/TablesActions/DeleteAction';
 import { useAppDispatch, useAppSelector } from '@features/app/hooks';
-import { deleteUser, getAllUsersPagination } from '@features/users/actions';
+import { getAllUsersPagination } from '@features/users/actions';
 import { selectUsers } from '@features/users/selectors';
 import Loader from '@containers/common/Loader';
-import RowTitle from '@containers/common/Table/components/RowTitle';
-import { formattedDate } from '@utils/helpers';
-import { incrementOffset } from '@features/users/slice';
 import Typography from '@mui/material/Typography';
 
 import { headCells } from './helpers';
-import { StyledTableCell } from './styles';
+import UserReports from '../UserReports';
+import TableRow from './TableRow';
 
 const UsersTable = () => {
   const dispatch = useAppDispatch();
+
   const { data: users, isLoading, offset, hasMoreItems } = useAppSelector(selectUsers);
-  const deleteAction = useCallback((id: string) => {
-    dispatch(deleteUser(id)).unwrap().finally(() => {
-      dispatch(incrementOffset()); // TODO: test the logic
-      dispatch(getAllUsersPagination(offset));
-    });
-  }, [dispatch, offset]);
 
   const fetchMoreData = async () => {
     dispatch(getAllUsersPagination(offset));
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
   };
 
   if (isLoading) {
@@ -36,32 +32,24 @@ const UsersTable = () => {
 
   // TODO: delete div
   return (
-    <div id="scrollableDiv" style={{ height: '600px', overflowY: 'scroll' }}>
-      <InfiniteScroll
-        dataLength={users.length}
-        next={fetchMoreData}
-        hasMore={hasMoreItems}
-        scrollableTarget="scrollableDiv"
-        loader={<Typography>Loading more users...</Typography>}
-      >
-        <StyledTable headCells={headCells}>
-          { users.map(({ id, email, dateJoined, name }) => (
-            <StyledTableRow key={id}>
-              <StyledTableCell>{id}</StyledTableCell>
-              <StyledTableCell>{name}</StyledTableCell>
-              <StyledTableCell>{email}</StyledTableCell>
-              <StyledTableCell>{formattedDate(dateJoined)}</StyledTableCell>
-              <StyledTableCell>
-                <RowTitle title="Edit" path={`/users/edit/${id}`} />
-              </StyledTableCell>
-              <StyledTableCell>
-                <DeleteBtn deleteAction={() => deleteAction(id)} />
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </StyledTable>
-      </InfiniteScroll>
-    </div>
+    <>
+      <div id="scrollableDiv" style={{ height: '600px', overflowY: 'scroll' }}>
+        <InfiniteScroll
+          dataLength={users.length}
+          next={fetchMoreData}
+          hasMore={hasMoreItems}
+          scrollableTarget="scrollableDiv"
+          loader={<Typography>Loading more users...</Typography>}
+        >
+          <StyledTable headCells={headCells}>
+            { users.map((item) => (
+              <TableRow key={item.id} {...item} setOpen={setOpen} />
+            ))}
+          </StyledTable>
+        </InfiniteScroll>
+      </div>
+      { open && <UserReports open={open} handleClose={handleClose} />}
+    </>
   );
 };
 

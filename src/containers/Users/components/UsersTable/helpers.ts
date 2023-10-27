@@ -13,6 +13,6 @@ export const headCells = [
   },
   {
     label: 'Actions',
-    colSpan: 2,
+    colSpan: 3,
   },
 ];

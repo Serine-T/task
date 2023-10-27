@@ -16,7 +16,7 @@ const BackButton = ({ path }: IBackButton) => {
     <Link to={PAGE_ROUTES[path]}>
       <StyledBackBox>
         <ArrowBackIosIcon />
-        <Typography variant="body3">
+        <Typography>
           Back
         </Typography>
       </StyledBackBox>
