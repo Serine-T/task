@@ -16,8 +16,8 @@ import EmptyState from '@containers/common/EmptyState';
 
 import { headCells } from './helpers';
 import SearchSection from './components/SearchSection';
-import TableRow from './components/ReportsTable/TableRow';
 import { IFiltersForm } from './components/SearchSection/helpers';
+import TableRow from './components/TableRow';
 
 const ReportsTable = () => {
   const dispatch = useAppDispatch();
@@ -57,7 +57,8 @@ const ReportsTable = () => {
         </StyledTable>
       ) : (
         <EmptyState
-          text={!allUsers.length ? 'users' : (userId ? 'search' : 'reports')}
+          text={!allUsers.length ? 'There is no user. Please add a new one to proceed'
+            : (userId ? 'No search results found' : 'There is no report. Please add a new one to proceed')}
         />
       )}
     </>

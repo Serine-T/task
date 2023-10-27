@@ -33,7 +33,7 @@ const Users = () => {
       {users.length ? (
         <UsersTable />
       ) : (
-        <EmptyState text="users" />
+        <EmptyState text="There is no user. Please add a new one to proceed" />
       )}
     </>
   );

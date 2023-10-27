@@ -11,8 +11,4 @@ export const headCells = [
   {
     label: 'Created date',
   },
-  {
-    label: 'Actions',
-    colSpan: 2,
-  },
 ];

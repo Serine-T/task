@@ -38,7 +38,7 @@ const EditComponent = () => {
       <>
         {reportsInfo && <InputsTable reportsInfo={reportsInfo} />}
       </>
-    ) : <EmptyState text="user" />
+    ) : <EmptyState text="There is no user. Please add a new one to proceed" />
   );
 };
 

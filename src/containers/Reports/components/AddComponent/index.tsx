@@ -21,7 +21,7 @@ const AddComponent = () => {
 
   return (allUsers.length
     ? <InputsTable />
-    : <EmptyState text="users" />
+    : <EmptyState text="There is no user. Please add a new one to proceed" />
   );
 };
 
