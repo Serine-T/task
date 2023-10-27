@@ -5,8 +5,6 @@ import { useFormContext } from 'react-hook-form';
 
 import Input from '../../../Input';
 import Textarea from '../../../Textarea';
-import Checkbox from '../../../Checkbox';
-import ColorPickerInput from '../../../ColorPickerInput';
 import Select from '../../../Select';
 import { ISelectList } from './helpers';
 
@@ -39,14 +37,6 @@ function ReusableFields({ field, type, label, selectList }: IReusableFields) {
         {...register(field)}
       />
     );
-  }
-
-  if (type === InputTypes.checkbox) {
-    return <Checkbox name={field as string} errorMessage={errors?.[field]?.message as string} />;
-  }
-
-  if (type === InputTypes.colorPicker) {
-    return <ColorPickerInput placeholder={label} name={field} errorMessage={errors?.[field]?.message as string} />;
   }
 
   if (type === InputTypes.select) {

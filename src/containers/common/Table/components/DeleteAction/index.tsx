@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { useConfirm } from 'material-ui-confirm';
 import { StyledUnderLinedText } from '@containers/common/StyledTypography/styled';
 
-import confirmOptionsDialog from '../../../../Confirm';
+import confirmOptionsDialog from '../../../Confirm';
 
 interface IDeleteAction {
   deleteAction: ()=> void;
