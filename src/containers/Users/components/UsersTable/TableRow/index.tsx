@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction, memo, useCallback } from 'react';
 
 import DeleteBtn from '@containers/common/Table/components/TablesActions/DeleteAction';
-import RowTitle from '@containers/common/Table/components/RowTitle';
+import RowTitle from '@containers/common/Table/components/EditBtn';
 import { StyledTableRow } from '@containers/common/Table/styled';
 import { useAppDispatch } from '@features/app/hooks';
 import { deleteReport, getAllReports } from '@features/reports/actions';
 import { formattedDate } from '@utils/helpers';
 import { IUserInfo } from '@features/users/types';
-import StyledTypography from '@containers/common/StyledTypography';
 import { useNavigate } from 'react-router-dom';
+import { StyledUnderLinedText } from '@containers/common/StyledTypography/styled';
 
 import { StyledTableCell } from './styles';
 
@@ -42,9 +42,9 @@ const TableRow = ({ id, name, email, dateJoined, setOpen }: ITableRow) => {
       <StyledTableCell>{email}</StyledTableCell>
       <StyledTableCell>{formattedDate(dateJoined)}</StyledTableCell>
       <StyledTableCell>
-        <StyledTypography onClick={handleOpen}>
+        <StyledUnderLinedText variant="body3" onClick={handleOpen}>
           View reports
-        </StyledTypography>
+        </StyledUnderLinedText>
       </StyledTableCell>
       <StyledTableCell>
         <RowTitle title="Edit" path={`/users/edit/${id}`} />

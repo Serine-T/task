@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
 import { useConfirm } from 'material-ui-confirm';
+import { StyledUnderLinedText } from '@containers/common/StyledTypography/styled';
 
-import StyledTypography from '../../../../StyledTypography';
 import confirmOptionsDialog from '../../../../Confirm';
 
 interface IDeleteAction {
@@ -19,16 +19,13 @@ const DeleteBtn = ({ deleteAction }: IDeleteAction) => {
   };
 
   return (
-    <StyledTypography
+    <StyledUnderLinedText
       aria-disabled
       onClick={handleDelete}
-      color="blue"
-      cursor="pointer"
       variant="body3"
-      underLine
     >
       Delete
-    </StyledTypography>
+    </StyledUnderLinedText>
   );
 };
 

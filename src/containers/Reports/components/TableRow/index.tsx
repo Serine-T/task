@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react';
 
 import DeleteBtn from '@containers/common/Table/components/TablesActions/DeleteAction';
-import RowTitle from '@containers/common/Table/components/RowTitle';
+import RowTitle from '@containers/common/Table/components/EditBtn';
 import { StyledTableRow } from '@containers/common/Table/styled';
 import { useAppDispatch } from '@features/app/hooks';
 import { deleteReport, getAllReports } from '@features/reports/actions';

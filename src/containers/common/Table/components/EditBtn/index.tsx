@@ -1,28 +1,25 @@
 import { memo } from 'react';
 
-import StyledTypography from '@containers/common/StyledTypography';
 import { useNavigate } from 'react-router-dom';
+import { StyledUnderLinedText } from '@containers/common/StyledTypography/styled';
 
-interface IRowTitle {
+interface IEditBtn {
   title: string;
   path: string;
 }
 
-const RowTitle = ({ title, path }: IRowTitle) => {
+const EditBtn = ({ title, path }: IEditBtn) => {
   const navigate = useNavigate();
   const handleEdit = () => navigate(path);
 
   return (
-    <StyledTypography
-      color="blue"
-      underLine
+    <StyledUnderLinedText
       onClick={handleEdit}
       variant="body3"
-      cursor="pointer"
     >
       {title}
-    </StyledTypography>
+    </StyledUnderLinedText>
   );
 };
 
-export default memo(RowTitle);
+export default memo(EditBtn);

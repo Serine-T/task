@@ -16,3 +16,9 @@ export const StyledMuiTypography = styled(Typography, {
   textDecoration: underLine ? 'underline' : 'none',
   cursor: cursor ?? 'pointer',
 }));
+
+export const StyledUnderLinedText = styled(Typography)(({ theme }) => ({
+  color: theme.palette.primary.dark,
+  textDecoration: 'underline',
+  cursor: 'pointer',
+}));
