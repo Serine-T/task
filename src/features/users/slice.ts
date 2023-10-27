@@ -5,8 +5,9 @@ import { addUser, editUser, getAllUsers, getAllUsersPagination, getUserById } fr
 import { limit } from './contants';
 
 const initialState: IState = {
-  isLoading: false,
+  isLoading: true,
   data: [],
+  allUsers: [],
   actionLoading: false,
   offset: 0,
   hasMoreItems: true,
@@ -47,7 +48,8 @@ const usersSlice = createSlice({
     builder.addCase(getAllUsers.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getAllUsers.fulfilled, (state) => {
+    builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
+      state.allUsers = payload;
       state.isLoading = false;
     });
     builder.addCase(getAllUsers.rejected, (state) => {

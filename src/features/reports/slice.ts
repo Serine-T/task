@@ -4,7 +4,7 @@ import { IState } from './types';
 import { addReport, editReport, getAllReports, getReportById } from './actions';
 
 const initialState: IState = {
-  isLoading: false,
+  isLoading: true,
   data: [],
   actionLoading: false,
 };

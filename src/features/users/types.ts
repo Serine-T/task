@@ -4,6 +4,7 @@ export interface IState {
   actionLoading: boolean;
   offset: number;
   hasMoreItems: boolean;
+  allUsers: IUserInfo[];
 }
 
 export interface IUserPayload {

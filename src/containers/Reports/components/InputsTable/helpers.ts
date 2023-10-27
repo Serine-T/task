@@ -18,7 +18,7 @@ export const defaultValues = {
 
 export const AddDataSchema = yup.object().shape({
   title: createRequiredTextWidthValidation('Title', 255),
-  content: createRequiredTextWidthValidation('Content', 255),
+  content: createRequiredTextWidthValidation('Content', 500),
   userId: createRequiredTextWidthValidation('User Id', 255),
 });
 

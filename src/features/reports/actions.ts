@@ -22,13 +22,14 @@ export const addReport = createAsyncThunk<void, IReportPayload, {
   },
 );
 
-export const getAllReports = createAsyncThunk<IReportInfo[], void, {
+export const getAllReports = createAsyncThunk<IReportInfo[], string | undefined, {
   rejectValue: AxiosData;
 }>(
   'reports/all',
-  async (_, thunkAPI) => {
+  async (userId, thunkAPI) => {
     try {
-      const { data } = await http.get<IReportInfo[]>(`${prefix}`);
+      const query = userId ? `?userId=${userId}` : '';
+      const { data } = await http.get<IReportInfo[]>(`${prefix}${query}`);
 
       return data;
     } catch (error) {

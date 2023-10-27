@@ -6,9 +6,9 @@ import PAGE_ROUTES from '@routes/routingEnum';
 import AddUser from '@containers/Users/components/AddComponent';
 import EditUser from '@containers/Users/components/EditComponent';
 import Users from '@containers/Users';
-import Reports from '@containers/Users copy';
-import AddReport from '@containers/Users copy/components/AddComponent';
-import EditReport from '@containers/Users copy/components/EditComponent';
+import Reports from '@containers/Reports';
+import AddReport from '@containers/Reports/components/AddComponent';
+import EditReport from '@containers/Reports/components/EditComponent';
 
 export const routingArray: RouteObject[] = [
   { path: '*', element: <NotFound /> },

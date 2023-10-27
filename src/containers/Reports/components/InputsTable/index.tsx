@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,10 +14,8 @@ import RowComponent from '@containers/common/Table/components/RowComponent';
 import { IReportInfo } from '@features/reports/types';
 import { selectReports } from '@features/reports/selectors';
 import { addReport, editReport } from '@features/reports/actions';
-import useMount from '@customHooks/useMount';
-import { getAllUsers } from '@features/users/actions';
 import { getOptionsArray } from '@utils/helpers';
-import { ISelectOptions } from '@utils/types';
+import { selectUsers } from '@features/users/selectors';
 
 import { AddDataSchema, IAddDataForm, inputsRows, defaultValues, formattedPayload } from './helpers';
 
@@ -29,22 +27,14 @@ const InputsTable = ({ reportsInfo }: IInputsTable) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { actionLoading } = useAppSelector(selectReports);
+  const { allUsers } = useAppSelector(selectUsers);
+
   const methods = useForm<IAddDataForm>({
     resolver: yupResolver(AddDataSchema),
     defaultValues: reportsInfo ?? defaultValues,
   });
 
-  const [usersList, setUsersList] = useState<ISelectOptions[]>([]);
-
   const { handleSubmit } = methods;
-
-  useMount(() => {
-    dispatch(getAllUsers()).unwrap().then((data) => {
-      const newList = getOptionsArray(data);
-
-      setUsersList(newList);
-    }).catch(() => {});
-  });
 
   const onSubmit = (data: IAddDataForm) => {
     const payload = formattedPayload(data);
@@ -75,7 +65,7 @@ const InputsTable = ({ reportsInfo }: IInputsTable) => {
                   {...item}
                   selectList={[{
                     field: 'userId',
-                    options: usersList,
+                    options: getOptionsArray(allUsers),
                   }]}
                 />
               </RowComponent>

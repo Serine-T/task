@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import StyledSearchSection from '@containers/common/StyledSearchContainer';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -10,36 +10,25 @@ import PAGE_ROUTES from '@routes/routingEnum';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 import { constructQueryString, getOptionsArray } from '@utils/helpers';
-import { useAppDispatch } from '@features/app/hooks';
+import { useAppSelector } from '@features/app/hooks';
 import SearchBtn from '@containers/common/SearchSection/SearchBtn';
-import useMount from '@customHooks/useMount';
-import { getAllUsers } from '@features/users/actions';
-import { ISelectOptions } from '@utils/types';
+import { selectUsers } from '@features/users/selectors';
 
 import { FiltersSchema, IFiltersForm } from './helpers';
 
 const SearchSection = () => {
-  const dispatch = useAppDispatch();
+  const { allUsers } = useAppSelector(selectUsers);
 
   const navigate = useNavigate();
   const { search } = useLocation();
   const params = queryString.parse(search);
   const { userId = '' } = params;
 
-  const [users, setUsers] = useState<ISelectOptions[]>([]);
   const methods = useForm<IFiltersForm>({
     resolver: yupResolver(FiltersSchema),
     defaultValues: {
       userId: userId as string,
     },
-  });
-
-  useMount(() => {
-    dispatch(getAllUsers()).unwrap().then((data) => {
-      const usersList = getOptionsArray(data);
-
-      setUsers(usersList);
-    }).catch(() => {});
   });
 
   const { handleSubmit } = methods;
@@ -49,7 +38,6 @@ const SearchSection = () => {
       userId: data.userId,
     });
 
-    console.log(`${PAGE_ROUTES.REPORTS}?${queryParams}`);
     navigate(`${PAGE_ROUTES.REPORTS}?${queryParams}`);
   };
 
@@ -65,11 +53,11 @@ const SearchSection = () => {
             <Select
               label="Users"
               width="200px"
-              name="category"
-              options={users}
+              name="userId"
+              options={getOptionsArray(allUsers, 'id')}
             />
           </StyledSearchRows>
-          <SearchBtn path={PAGE_ROUTES.USERS} />
+          <SearchBtn path={PAGE_ROUTES.REPORTS} />
         </Stack>
       </FormProvider>
     </StyledSearchSection>

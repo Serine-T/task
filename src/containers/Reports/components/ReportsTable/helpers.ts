@@ -3,13 +3,13 @@ export const headCells = [
     label: 'Id',
   },
   {
-    label: 'Name',
+    label: 'Title',
   },
   {
-    label: 'Email',
+    label: 'User Id',
   },
   {
-    label: 'Joined date',
+    label: 'Created date',
   },
   {
     label: 'Actions',

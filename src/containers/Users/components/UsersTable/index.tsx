@@ -36,7 +36,7 @@ const UsersTable = () => {
 
   // TODO: delete div
   return (
-    <div id="scrollableDiv" style={{ height: 'calc(80vh - 80px)', overflowY: 'scroll' }}>
+    <div id="scrollableDiv" style={{ height: '600px', overflowY: 'scroll' }}>
       <InfiniteScroll
         dataLength={users.length}
         next={fetchMoreData}

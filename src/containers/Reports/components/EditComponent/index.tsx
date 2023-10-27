@@ -8,6 +8,9 @@ import PAGE_ROUTES from '@routes/routingEnum';
 import { selectReports } from '@features/reports/selectors';
 import { getReportById } from '@features/reports/actions';
 import { IReportInfo } from '@features/reports/types';
+import { getAllUsers } from '@features/users/actions';
+import { selectUsers } from '@features/users/selectors';
+import EmptyState from '@containers/common/EmptyState';
 
 import InputsTable from '../InputsTable';
 
@@ -17,21 +20,25 @@ const EditComponent = () => {
   const { id } = useParams();
   const [reportsInfo, setReportsInfo] = useState<IReportInfo | null>(null);
   const { isLoading } = useAppSelector(selectReports);
+  const { allUsers, isLoading: userLoading } = useAppSelector(selectUsers);
 
   useMount(() => {
+    dispatch(getAllUsers());
     dispatch(getReportById(id as string)).unwrap().then((data) => {
       setReportsInfo(data);
     }).catch(() => navigate(PAGE_ROUTES.REPORTS));
   });
 
-  if (isLoading) {
+  if (userLoading || isLoading) {
     return <Loader />;
   }
 
   return (
-    <>
-      {reportsInfo && <InputsTable reportsInfo={reportsInfo} />}
-    </>
+    allUsers.length ? (
+      <>
+        {reportsInfo && <InputsTable reportsInfo={reportsInfo} />}
+      </>
+    ) : <EmptyState text="user" />
   );
 };
 

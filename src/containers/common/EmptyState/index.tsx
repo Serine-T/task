@@ -10,7 +10,7 @@ interface IEmptyState {
 const EmptyState = ({ text }: IEmptyState) => (
   <StyledTitleBox>
     <StyledTypography variant="h6" color="grey">
-      {`You don’t have any ${text}, please add new to proceed `}
+      {text === 'search' ? 'No search results found' : `You don’t have any ${text}, please add new to proceed `}
     </StyledTypography>
 
   </StyledTitleBox>
