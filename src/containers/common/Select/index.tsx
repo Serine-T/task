@@ -15,7 +15,6 @@ import ErrorMessage from '../ErrorMessage';
 import { selectDefaultValue } from './helpers';
 
 interface ISelectProps extends SelectProps {
-  errors?: any;
   label?: string;
   options: ISelectOptions[];
   width?: string;
@@ -27,7 +26,6 @@ interface ISelectProps extends SelectProps {
 const Select = ({
   name,
   label,
-  errors,
   options,
   width,
   errorMessage,

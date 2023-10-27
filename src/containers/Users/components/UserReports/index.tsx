@@ -9,7 +9,12 @@ import Box from '@mui/material/Box';
 
 import { headCells } from './helpers';
 
-const UserReports = ({ open, handleClose }: any) => {
+interface IUserReports {
+  open: boolean;
+  handleClose: () => void;
+}
+
+const UserReports = ({ open, handleClose }: IUserReports) => {
   const { data: reports } = useAppSelector(selectReports);
 
   return (
