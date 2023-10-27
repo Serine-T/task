@@ -13,28 +13,10 @@ export const sleep = (delay = 0) =>
     setTimeout(resolve, delay);
   });
 
-export const camelCaseToSensativeCase = (text: string): string => {
-  const result = text.replace(/([A-Z])/g, ' $1');
-  const finalResult = result.charAt(0).toUpperCase() + result.slice(1);
-
-  return finalResult;
-};
-
-// Add leading 0 if number has only one digit
-export const addZeroToOneDigit = (num: number) => {
-  return String(num).padStart(2, '0');
-};
-
 interface IItems {
   id: string;
   [key: string]: any;
 }
-
-export const getReorderedArray = (items: IItems[]) => {
-  const orders = items.map(({ id }, index) => ({ id, sort: index + 1 }));
-
-  return { orders };
-};
 
 export const getOptionsArray = (
   items: IItems[],
@@ -55,14 +37,4 @@ export const constructQueryString = (filters: Filters): string => {
     .map(([key, value]) => value && `${key}=${key === 'searchTerm' ? encodeURIComponent(value) : value}`)
     .filter(Boolean)
     .join('&');
-};
-
-export const searchDefaultValue = (filters: Filters) => {
-  for (const key in filters) {
-    if (filters[key] === undefined) {
-      filters[key] = '';
-    }
-  }
-
-  return filters;
 };
