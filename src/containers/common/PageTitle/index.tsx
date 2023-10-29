@@ -9,19 +9,18 @@ import Button from '../Button';
 
 interface IStyledPageTitle {
   title: string;
-  btnName: string;
+  btnName?: string;
   path: PAGE_ROUTES;
-  isShowBtn?: boolean;
 }
 
-const PageTitle = ({ title, btnName, path, isShowBtn = true }: IStyledPageTitle) => {
+const PageTitle = ({ title, btnName, path }: IStyledPageTitle) => {
   const navigate = useNavigate();
   const handleAdd = () => navigate(path);
 
   return (
     <StyledTitleBox>
       <Typography variant="h2">{title}</Typography>
-      { isShowBtn && <Button width="auto" onClick={handleAdd}>{ btnName}</Button>}
+      <Button width="auto" onClick={handleAdd}>{ btnName}</Button>
     </StyledTitleBox>
   );
 };

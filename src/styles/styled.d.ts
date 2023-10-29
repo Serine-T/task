@@ -11,10 +11,6 @@ declare module '@mui/material/styles' {
     body3: React.CSSProperties;
     body4: React.CSSProperties;
     subtitle3: React.CSSProperties;
-    h7: React.CSSProperties;
-    h8: React.CSSProperties;
-    h9: React.CSSProperties;
-    h10: React.CSSProperties;
   }
    interface BreakpointOverrides {
      sm: true;
@@ -33,10 +29,6 @@ declare module '@mui/material/Typography' {
     body3: true;
     body4: true;
     subtitle3: true;
-    h7: true;
-    h8: true;
-    h9: true;
-    h10: true;
   }
 }
 

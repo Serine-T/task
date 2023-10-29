@@ -1,6 +1,5 @@
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import { FontFamilyNames } from '@customTypes/global/theme/fonts';
 import CircularProgress from '@mui/material/CircularProgress';
 
 export const StyledButton = styled(Button, {
@@ -18,7 +17,6 @@ export const StyledButton = styled(Button, {
   backgroundColor: isOutlined ? theme.palette.common.white : theme.palette.primary.dark,
   borderColor: theme.palette.primary.dark,
   borderRadius: 4,
-  fontFamily: FontFamilyNames.DmSansRegular,
   color: isOutlined ? theme.palette.primary.dark : theme.palette.common.white,
   padding: '11px 12px',
 

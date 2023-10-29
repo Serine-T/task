@@ -5,10 +5,10 @@ export const breakpoints: BreakpointsOptions = {
     xs: 0,
     sm: 600,
     md: 900,
-    l: 1025, // large
+    l: 1025,
     lg: 1200,
     xl: 1366,
-    el: 1441, // Extra Large
-    eel: 1921, // Extra-Extra Large
+    el: 1441,
+    eel: 1921,
   },
 };

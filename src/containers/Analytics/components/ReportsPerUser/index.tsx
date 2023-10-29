@@ -4,15 +4,15 @@ import { useAppSelector } from '@features/app/hooks';
 import { selectReports } from '@features/reports/selectors';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-import { processData } from './helpers';
+import { processUserReportBreakdown } from './helpers';
 
-const ReportsPerMounts = () => {
+const ReportsPerUser = () => {
   const { data: reports } = useAppSelector(selectReports);
 
   return (
-    <BarChart width={600} height={300} data={processData(reports)}>
+    <BarChart width={300} height={250} data={processUserReportBreakdown(reports)}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="month" />
+      <XAxis dataKey="userId" />
       <YAxis />
       <Tooltip />
       <Legend />
@@ -21,4 +21,4 @@ const ReportsPerMounts = () => {
   );
 };
 
-export default memo(ReportsPerMounts);
+export default memo(ReportsPerUser);

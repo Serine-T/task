@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import FormControl from '@mui/material/FormControl';
-import { FontFamilyNames } from '@customTypes/global/theme/fonts';
 
 export const StyledFormControl = styled(FormControl)(() => ({
   width: '100%',
@@ -19,7 +18,6 @@ export const StyledTextareaAutosize = styled(TextareaAutosize, {
   outline: 'none',
   border: `1px solid ${error ? theme.palette.error.dark : theme.palette.grey[500]}`,
   fontSize: '12px',
-  fontFamily: FontFamilyNames.DmSansRegular,
   marginBottom: error ? '4px' : '',
   overflow: 'auto  !important',
 

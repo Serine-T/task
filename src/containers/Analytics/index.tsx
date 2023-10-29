@@ -4,8 +4,9 @@ import useMount from '@customHooks/useMount';
 import { selectReports } from '@features/reports/selectors';
 import Loader from '@containers/common/Loader';
 
-import ReportsPerMounts from './ReportsPerMounts';
-import ReportsPerUser from './ReportsPerUser';
+import Title from './components/ReusableTitle';
+import ReportsPerMounts from './components/ReportsPerMounts';
+import ReportsPerUser from './components/ReportsPerUser';
 
 const Analytics = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +22,9 @@ const Analytics = () => {
 
   return (
     <>
+      <Title text="Statistic reports data of per month" />
       <ReportsPerMounts />
+      <Title text="Statistic reports data of per month" />
       <ReportsPerUser />
     </>
   );

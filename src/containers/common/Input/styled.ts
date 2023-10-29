@@ -2,7 +2,6 @@ import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import { FontFamilyNames } from '@customTypes/global/theme/fonts';
 import Stack from '@mui/material/Stack';
 
 export const StyledInputBox = styled(Stack, {
@@ -18,7 +17,6 @@ export const StyledBaseInput = styled(InputBase)(({ theme }) => ({
     height: 13,
     padding: '10px 12px',
     fontSize: 12,
-    fontFamily: FontFamilyNames.DmSansRegular,
     borderRadius: 4,
 
     '&::placeholder': {

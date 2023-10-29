@@ -5,7 +5,6 @@ class StorageManager {
 
       localStorage.setItem(key, serializedState);
     } catch {
-      // ignore write errors
     }
   };
 

@@ -2,13 +2,11 @@ import { memo, useCallback } from 'react';
 
 import DeleteBtn from '@containers/common/Table/components/DeleteAction';
 import RowTitle from '@containers/common/Table/components/EditBtn';
-import { StyledTableRow } from '@containers/common/Table/styled';
+import { StyledTableCell, StyledTableRow } from '@containers/common/Table/styled';
 import { useAppDispatch } from '@features/app/hooks';
 import { deleteReport, getAllReports } from '@features/reports/actions';
 import { formattedDate } from '@utils/helpers';
 import { IReportInfo } from '@features/reports/types';
-
-import { StyledTableCell } from './styles';
 
 interface ITableRow extends IReportInfo {
   isUserPage?: boolean;
