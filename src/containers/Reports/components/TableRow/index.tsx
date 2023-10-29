@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
 
-import DeleteBtn from '@containers/common/Table/components/DeleteAction';
+import DeleteBtn from '@containers/common/Table/components/DeleteBtn';
 import RowTitle from '@containers/common/Table/components/EditBtn';
 import { StyledTableCell, StyledTableRow } from '@containers/common/Table/styled';
 import { useAppDispatch } from '@features/app/hooks';
@@ -37,7 +37,6 @@ const TableRow = ({ id, title, userId, dateCreated, isUserPage = false }: ITable
       </StyledTableCell>
       )}
     </StyledTableRow>
-
   );
 };
 

@@ -12,7 +12,7 @@ import { getAllUsers } from '@features/users/actions';
 import { selectUsers } from '@features/users/selectors';
 import EmptyState from '@containers/common/EmptyState';
 
-import InputsTable from '../InputsTable';
+import InputsTable from '../components/AddTable';
 
 const EditComponent = () => {
   const navigate = useNavigate();

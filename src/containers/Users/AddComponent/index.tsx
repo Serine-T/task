@@ -1,4 +1,4 @@
-import InputsTable from '../InputsTable';
+import InputsTable from '../components/AddTable';
 
 const AddComponent = () => (
   <InputsTable />

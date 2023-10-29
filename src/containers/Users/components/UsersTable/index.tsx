@@ -9,7 +9,7 @@ import Loader from '@containers/common/Loader';
 import Typography from '@mui/material/Typography';
 
 import { headCells } from './helpers';
-import UserReports from '../UserReports';
+import UserReports from '../UserModal';
 import TableRow from './TableRow';
 
 const UsersTable = () => {

@@ -18,7 +18,7 @@ function ReusableFields({ field, type, label, selectList }: IReusableFields) {
   if (type === InputTypes.text) {
     return (
       <Input
-        type={field === 'password' ? 'password' : 'text'}
+        type="text"
         placeholder={label}
         {...register(field)}
         errorMessage={errors?.[field]?.message as string}

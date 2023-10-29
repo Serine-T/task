@@ -1,7 +1,7 @@
 import blue from '@mui/material/colors/blue';
 import blueGrey from '@mui/material/colors/blueGrey';
 import { PaletteOptions } from '@mui/material';
-import { COLORS } from '@customTypes/global/theme/colors';
+import { COLORS } from '@customTypes/theme/colors';
 
 const palette:PaletteOptions = {
   background: {

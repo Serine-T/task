@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@features/app/hooks';
 import { selectUsers } from '@features/users/selectors';
 import EmptyState from '@containers/common/EmptyState';
 
-import InputsTable from '../InputsTable';
+import InputsTable from '../components/AddTable';
 
 const AddComponent = () => {
   const { allUsers, isLoading } = useAppSelector(selectUsers);

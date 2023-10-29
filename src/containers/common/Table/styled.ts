@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import Pagination from '@mui/material/Pagination';
 import Table from '@mui/material/Table';
 import TableCell from '@mui/material/TableCell';
 
@@ -39,29 +38,6 @@ export const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export const StyledMuiTable = styled(Table)(() => ({
   boxShadow: 'none',
   minWidth: '432px',
-}));
-
-export const StyledPagination = styled(Pagination)(({ theme }) => ({
-  margin: '72px auto 0',
-  display: 'flex',
-  justifyContent: 'center',
-
-  '.MuiPaginationItem-root': {
-    borderRadius: '8px',
-    fontSize: '14px',
-    margin: '0 8px',
-    '&.Mui-selected': {
-      background: theme.palette.grey[500],
-
-      '&:hover': {
-        background: theme.palette.grey[500],
-      },
-    },
-
-    '&:hover': {
-      background: theme.palette.grey[500],
-    },
-  },
 }));
 
 export const StyledTableCell = styled(TableCell)(() => ({

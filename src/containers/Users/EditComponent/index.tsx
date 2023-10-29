@@ -9,7 +9,7 @@ import { selectUsers } from '@features/users/selectors';
 import { getUserById } from '@features/users/actions';
 import { IUserInfo } from '@features/users/types';
 
-import InputsTable from '../InputsTable';
+import InputsTable from '../components/AddTable';
 
 const EditComponent = () => {
   const navigate = useNavigate();

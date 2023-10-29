@@ -1,4 +1,4 @@
-import { COLORS } from '@customTypes/global/theme/colors';
+import { COLORS } from '@customTypes/theme/colors';
 import { Components, Theme } from '@mui/material';
 
 export const MuiPaper: Components<Theme>['MuiPaper'] = {

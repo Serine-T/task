@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import { StyledMuiTable, StyledPagination, StyledTableContainer, StyledTableRow } from './styled';
+import { StyledMuiTable, StyledTableContainer, StyledTableRow } from './styled';
 import { ITableHeadCell } from './helpers';
 
 interface IStyledTable extends TableProps {
@@ -15,13 +15,9 @@ interface IStyledTable extends TableProps {
   children: ReactNode;
   tableTitle?: string;
   colSpan?: number;
-  hasPagination?: boolean;
-  btn?: ReactNode | null;
  }
 
-const StyledTable = ({
-  headCells, children, tableTitle, colSpan, hasPagination = false, btn = null,
-}: IStyledTable) => {
+const StyledTable = ({ headCells, children, tableTitle, colSpan }: IStyledTable) => {
   return (
     <>
       <StyledTableContainer>
@@ -35,11 +31,10 @@ const StyledTable = ({
                       <Typography>
                         {tableTitle}
                       </Typography>
-                      {btn && btn}
                     </Stack>
                   </TableCell>
                 )
-                  : (headCells ? headCells.map((props) => {
+                  : (headCells?.map((props) => {
                     const { label } = props;
 
                     return (
@@ -49,7 +44,7 @@ const StyledTable = ({
                         </Typography>
                       </TableCell>
                     );
-                  }) : null)
+                  }))
                 }
             </StyledTableRow>
           </TableHead>
@@ -58,7 +53,6 @@ const StyledTable = ({
           </TableBody>
         </StyledMuiTable>
       </StyledTableContainer>
-      {hasPagination && <StyledPagination count={11} defaultPage={1} />}
     </>
   );
 };

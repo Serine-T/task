@@ -3,12 +3,12 @@ import Analytics from '@containers/Analytics';
 import NotFound from '@containers/NotFound';
 import Layout from 'src/Layout';
 import PAGE_ROUTES from '@routes/routingEnum';
-import AddUser from '@containers/Users/components/AddComponent';
-import EditUser from '@containers/Users/components/EditComponent';
+import AddUser from '@containers/Users/AddComponent';
+import EditUser from '@containers/Users/EditComponent';
 import Users from '@containers/Users';
 import Reports from '@containers/Reports';
-import AddReport from '@containers/Reports/components/AddComponent';
-import EditReport from '@containers/Reports/components/EditComponent';
+import AddReport from '@containers/Reports/AddComponent';
+import EditReport from '@containers/Reports/EditComponent';
 
 export const routingArray: RouteObject[] = [
   { path: '*', element: <NotFound /> },

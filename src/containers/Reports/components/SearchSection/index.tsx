@@ -1,9 +1,8 @@
 import { memo } from 'react';
 
-import StyledSearchSection from '@containers/common/StyledSearchContainer';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { StyledSearchRows } from '@containers/common/StyledSearchContainer/styled';
+import { StyledSearchContainer, StyledSearchRows } from '@containers/Reports/components/SearchSection/styled';
 import Select from '@containers/common/Select';
 import Stack from '@mui/material/Stack';
 import PAGE_ROUTES from '@routes/routingEnum';
@@ -11,7 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 import { constructQueryString, getOptionsArray } from '@utils/helpers';
 import { useAppSelector } from '@features/app/hooks';
-import SearchBtn from '@containers/common/SearchSection/SearchBtn';
+import SearchBtn from '@containers/Reports/components/SearchSection/SearchBtn';
 import { selectUsers } from '@features/users/selectors';
 
 import { FiltersSchema, IFiltersForm } from './helpers';
@@ -42,7 +41,7 @@ const SearchSection = () => {
   };
 
   return (
-    <StyledSearchSection>
+    <StyledSearchContainer>
       <FormProvider {...methods}>
         <Stack
           onSubmit={handleSubmit(onSubmit)}
@@ -60,7 +59,7 @@ const SearchSection = () => {
           <SearchBtn path={PAGE_ROUTES.REPORTS} />
         </Stack>
       </FormProvider>
-    </StyledSearchSection>
+    </StyledSearchContainer>
   );
 };
 
