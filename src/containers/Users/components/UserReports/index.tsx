@@ -6,6 +6,7 @@ import { selectReports } from '@features/reports/selectors';
 import TableRow from '@containers/Reports/components/TableRow';
 import Modal from '@containers/common/Modal';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import { headCells } from './helpers';
 
@@ -25,6 +26,7 @@ const UserReports = ({ open, handleClose }: IUserReports) => {
       maxWidth="xl"
     >
       <Box p="16px">
+        <Typography mb="16px" variant="h4">Reports</Typography>
         <StyledTable headCells={headCells}>
           { reports.map((item) => (
             <TableRow key={item.id} {...item} isUserPage />
