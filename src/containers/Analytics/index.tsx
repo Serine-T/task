@@ -3,8 +3,8 @@ import { getAllReports } from '@features/reports/actions';
 import useMount from '@customHooks/useMount';
 import { selectReports } from '@features/reports/selectors';
 import Loader from '@containers/common/Loader';
+import Typography from '@mui/material/Typography';
 
-import Title from './components/ReusableTitle';
 import ReportsPerMounts from './components/ReportsPerMounts';
 import ReportsPerUser from './components/ReportsPerUser';
 
@@ -22,9 +22,9 @@ const Analytics = () => {
 
   return (
     <>
-      <Title text="Statistic reports data of per month" />
+      <Typography variant="h6">Monthly statistics reports</Typography>
       <ReportsPerMounts />
-      <Title text="Statistic reports data of per month" />
+      <Typography variant="h6">Statistics reports per user</Typography>
       <ReportsPerUser />
     </>
   );
