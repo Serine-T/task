@@ -20,6 +20,7 @@
 		"@types/react-beautiful-dnd": "^13.1.4",
 		"@types/react-datepicker": "^4.15.0",
 		"@types/react-dom": "^18.2.6",
+		"@testing-library/react": "^14.0.0",
 		"axios": "^1.4.0",
 		"colornames": "^1.1.1",
 		"date-fns": "^2.30.0",
@@ -78,6 +79,7 @@
 	"devDependencies": {
 		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
 		"@craco/craco": "^7.1.0",
+		"@testing-library/jest-dom": "^4.2.4",
 		"craco": "^0.0.3",
 		"eslint": "^8.52.0",
 		"eslint-config-airbnb": "^19.0.4",
