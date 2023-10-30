@@ -32,3 +32,7 @@ export interface ISelectOptions {
   optionName: string;
   value: any;
 }
+
+export interface GlobalQueryString {
+  [key: string]: string | undefined;
+}

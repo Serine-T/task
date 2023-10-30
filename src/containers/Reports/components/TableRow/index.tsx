@@ -7,6 +7,7 @@ import { useAppDispatch } from '@features/app/hooks';
 import { deleteReport, getAllReports } from '@features/reports/actions';
 import { formattedDate } from '@utils/helpers';
 import { IReportInfo } from '@features/reports/types';
+import useErrorHandler from '@customHooks/useErrorHandler';
 
 interface ITableRow extends IReportInfo {
   isUserPage?: boolean;
@@ -14,10 +15,15 @@ interface ITableRow extends IReportInfo {
 
 const TableRow = ({ id, title, userId, dateCreated, isUserPage = false }: ITableRow) => {
   const dispatch = useAppDispatch();
+  const handleError = useErrorHandler();
+
   const deleteAction = useCallback(() => {
     dispatch(deleteReport(id)).unwrap().then(() => {
       dispatch(getAllReports());
-    }).catch(() => {});
+    }).catch((e) => {
+      handleError(e.message);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, dispatch]);
 
   return (

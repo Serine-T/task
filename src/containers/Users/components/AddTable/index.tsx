@@ -14,6 +14,7 @@ import RowComponent from '@containers/common/Table/components/RowComponent';
 import { IUserInfo } from '@features/users/types';
 import { selectUsers } from '@features/users/selectors';
 import { addUser, editUser } from '@features/users/actions';
+import useErrorHandler from '@customHooks/useErrorHandler';
 
 import { AddDataSchema, IAddDataForm, inputsRows, defaultValues, formattedPayload } from './helpers';
 
@@ -24,6 +25,8 @@ interface IInputsTable{
 const InputsTable = ({ usersInfo }: IInputsTable) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const handleError = useErrorHandler();
+
   const { actionLoading } = useAppSelector(selectUsers);
   const methods = useForm<IAddDataForm>({
     resolver: yupResolver(AddDataSchema),
@@ -38,8 +41,7 @@ const InputsTable = ({ usersInfo }: IInputsTable) => {
     dispatch(usersInfo ? editUser(payload) : addUser(payload)).unwrap().then(() => {
       navigate(PAGE_ROUTES.USERS);
     }).catch((e) => {
-      console.log('ee', e); // TODO: remove
-      navigate(PAGE_ROUTES.USERS);
+      handleError(e.message);
     });
   };
 

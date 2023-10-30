@@ -11,7 +11,6 @@ import { ISelectList } from './helpers';
 interface IReusableFields extends ValidFieldNames{
   selectList?: ISelectList[];
 }
-
 function ReusableFields({ field, type, label, selectList }: IReusableFields) {
   const { formState: { errors }, register } = useFormContext();
 
@@ -22,9 +21,6 @@ function ReusableFields({ field, type, label, selectList }: IReusableFields) {
         placeholder={label}
         {...register(field)}
         errorMessage={errors?.[field]?.message as string}
-        inputProps={
-          { autoComplete: 'new-password' }
-        }
       />
     );
   }

@@ -16,6 +16,7 @@ import { selectReports } from '@features/reports/selectors';
 import { addReport, editReport } from '@features/reports/actions';
 import { getOptionsArray } from '@utils/helpers';
 import { selectUsers } from '@features/users/selectors';
+import useErrorHandler from '@customHooks/useErrorHandler';
 
 import { AddDataSchema, IAddDataForm, inputsRows, defaultValues, formattedPayload } from './helpers';
 
@@ -26,6 +27,8 @@ interface IInputsTable{
 const InputsTable = ({ reportsInfo }: IInputsTable) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const handleError = useErrorHandler();
+
   const { actionLoading } = useAppSelector(selectReports);
   const { allUsers } = useAppSelector(selectUsers);
 
@@ -42,7 +45,7 @@ const InputsTable = ({ reportsInfo }: IInputsTable) => {
     dispatch(reportsInfo ? editReport(payload) : addReport(payload)).unwrap().then(() => {
       navigate(PAGE_ROUTES.REPORTS);
     }).catch((e) => {
-      console.log(e); // TODO
+      handleError(e.message);
     });
   };
 

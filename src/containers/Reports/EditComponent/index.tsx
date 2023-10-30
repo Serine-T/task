@@ -1,32 +1,34 @@
 import { useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@features/app/hooks';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useMount from '@customHooks/useMount';
 import Loader from '@containers/common/Loader';
-import PAGE_ROUTES from '@routes/routingEnum';
 import { selectReports } from '@features/reports/selectors';
 import { getReportById } from '@features/reports/actions';
 import { IReportInfo } from '@features/reports/types';
 import { getAllUsers } from '@features/users/actions';
 import { selectUsers } from '@features/users/selectors';
 import EmptyState from '@containers/common/EmptyState';
+import useErrorHandler from '@customHooks/useErrorHandler';
 
 import InputsTable from '../components/AddTable';
 
 const EditComponent = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { id } = useParams();
+  const { id = '' } = useParams();
   const [reportsInfo, setReportsInfo] = useState<IReportInfo | null>(null);
   const { isLoading } = useAppSelector(selectReports);
   const { allUsers, isLoading: userLoading } = useAppSelector(selectUsers);
+  const handleError = useErrorHandler();
 
   useMount(() => {
     dispatch(getAllUsers());
-    dispatch(getReportById(id as string)).unwrap().then((data) => {
+    dispatch(getReportById(id)).unwrap().then((data) => {
       setReportsInfo(data);
-    }).catch(() => {});
+    }).catch((e) => {
+      handleError(e.message);
+    });
   });
 
   if (userLoading || isLoading) {

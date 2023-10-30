@@ -13,6 +13,7 @@ import { getAllUsers } from '@features/users/actions';
 import PAGE_ROUTES from '@routes/routingEnum';
 import PageTitle from '@containers/common/PageTitle';
 import EmptyState from '@containers/common/EmptyState';
+import useErrorHandler from '@customHooks/useErrorHandler';
 
 import { headCells } from './helpers';
 import SearchSection from './components/SearchSection';
@@ -25,15 +26,22 @@ const ReportsTable = () => {
   const { isLoading: usersLoading, allUsers } = useAppSelector(selectUsers);
   const location = useLocation();
   const params = queryString.parse(location.search);
+  const handleError = useErrorHandler();
 
   const { userId = '' } = params as IFiltersForm;
 
   useMount(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers()).unwrap().catch((e) => {
+      handleError(e.message);
+    });
   });
 
   useEffect(() => {
-    dispatch(getAllReports(userId));
+    dispatch(getAllReports(userId)).unwrap().catch((e) => {
+      handleError(e.message);
+      console.log('eetr', e.message);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, dispatch]);
 
   if (isLoading || usersLoading) {

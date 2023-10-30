@@ -9,6 +9,7 @@ import { formattedDate } from '@utils/helpers';
 import { IUserInfo } from '@features/users/types';
 import { useNavigate } from 'react-router-dom';
 import { StyledUnderLinedText } from '@containers/common/StyledTypography/styled';
+import useErrorHandler from '@customHooks/useErrorHandler';
 
 interface ITableRow extends IUserInfo {
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -17,15 +18,19 @@ interface ITableRow extends IUserInfo {
 const TableRow = ({ id, name, email, dateJoined, setOpen }: ITableRow) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const handleError = useErrorHandler();
 
   const deleteAction = useCallback(() => {
     dispatch(deleteReport(id)).unwrap().then(() => {
       dispatch(getAllReports());
-    }).catch(() => {});
+    }).catch((e) => {
+      handleError(e.message);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, dispatch]);
 
   const handleOpen = () => {
-    dispatch(getAllReports(id as string)).unwrap().then((data) => {
+    dispatch(getAllReports(id)).unwrap().then((data) => {
       if (data.length) {
         setOpen(true);
         navigate(`/users?userId=${id}`);

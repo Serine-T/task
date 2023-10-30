@@ -12,8 +12,7 @@ const errorsSlice = createSlice({
   initialState,
   reducers: {
     setErrorMessage: (state, { payload }) => {
-      console.log('ffg', payload);
-      state.errorMessage = payload;
+      state.errorMessage = payload || 'Something went wrong!';
       state.isOpen = true;
     },
 

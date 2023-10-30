@@ -12,30 +12,26 @@ import { constructQueryString, getOptionsArray } from '@utils/helpers';
 import { useAppSelector } from '@features/app/hooks';
 import SearchBtn from '@containers/Reports/components/SearchSection/SearchBtn';
 import { selectUsers } from '@features/users/selectors';
+import { GlobalQueryString } from '@utils/types';
 
 import { FiltersSchema, IFiltersForm } from './helpers';
 
 const SearchSection = () => {
   const { allUsers } = useAppSelector(selectUsers);
-
   const navigate = useNavigate();
   const { search } = useLocation();
-  const params = queryString.parse(search);
+  const params = queryString.parse(search) as GlobalQueryString;
   const { userId = '' } = params;
 
   const methods = useForm<IFiltersForm>({
     resolver: yupResolver(FiltersSchema),
-    defaultValues: {
-      userId: userId as string,
-    },
+    defaultValues: { userId },
   });
 
   const { handleSubmit } = methods;
 
   const onSubmit = (data: IFiltersForm) => {
-    const queryParams = constructQueryString({
-      userId: data.userId,
-    });
+    const queryParams = constructQueryString({ ...data });
 
     navigate(`${PAGE_ROUTES.REPORTS}?${queryParams}`);
   };
