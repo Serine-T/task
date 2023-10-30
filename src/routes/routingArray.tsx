@@ -1,17 +1,18 @@
 import { Navigate, RouteObject } from 'react-router-dom';
-import Analytics from '@containers/Analytics';
 import NotFound from '@containers/NotFound';
 import Layout from 'src/Layout';
-import PAGE_ROUTES from '@routes/routingEnum';
+import Analytics from '@containers/Analytics';
+import Users from '@containers/Users';
 import AddUser from '@containers/Users/AddComponent';
 import EditUser from '@containers/Users/EditComponent';
-import Users from '@containers/Users';
 import Reports from '@containers/Reports';
 import AddReport from '@containers/Reports/AddComponent';
 import EditReport from '@containers/Reports/EditComponent';
 
+import PAGE_ROUTES from './routingEnum';
+
 export const routingArray: RouteObject[] = [
-  { path: '*', element: <NotFound /> },
+  { path: PAGE_ROUTES.NOT_FOUND, element: <NotFound /> },
   {
     element: <Layout />,
     children: [

@@ -44,6 +44,16 @@
 		"web-vitals": "^2.1.4",
 		"yup": "^1.2.0"
 	},
+	 "jest": {
+		"moduleNameMapper": {
+		"^@containers/(.*)$": "<rootDir>/src/containers/$1",
+		"^@routes/(.*)$": "<rootDir>/src/routes/$1",
+		"^@customHooks/(.*)$": "<rootDir>/src/customHooks/$1",
+		"^@features/(.*)$": "<rootDir>/src/features/$1",
+		"^@services/(.*)$": "<rootDir>/src/services/$1",
+		"^@styles/(.*)$": "<rootDir>/src/styles/$1"
+		}
+	},
 	"overrides": {
 		"typescript": "^5.0.2"
 	},

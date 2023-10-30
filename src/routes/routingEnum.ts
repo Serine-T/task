@@ -1,5 +1,6 @@
 enum PAGE_ROUTES {
   HOME = '/',
+  NOT_FOUND = '*',
   ANALYTICS = '/analytics',
   USERS = '/users',
   ADD_USER = '/users/add',
