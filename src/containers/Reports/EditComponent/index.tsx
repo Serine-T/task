@@ -23,7 +23,9 @@ const EditComponent = () => {
   const handleError = useErrorHandler();
 
   useMount(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers()).unwrap().catch((e) => {
+      handleError(e.message);
+    });
     dispatch(getReportById(id)).unwrap().then((data) => {
       setReportsInfo(data);
     }).catch((e) => {

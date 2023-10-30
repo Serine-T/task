@@ -39,7 +39,6 @@ const ReportsTable = () => {
   useEffect(() => {
     dispatch(getAllReports(userId)).unwrap().catch((e) => {
       handleError(e.message);
-      console.log('eetr', e.message);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, dispatch]);

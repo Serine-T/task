@@ -7,6 +7,8 @@ import { getAllUsersPagination } from '@features/users/actions';
 import { selectUsers } from '@features/users/selectors';
 import Loader from '@containers/common/Loader';
 import Typography from '@mui/material/Typography';
+import useErrorHandler from '@customHooks/useErrorHandler';
+import Box from '@mui/material/Box';
 
 import { headCells } from './helpers';
 import UserReports from '../UserModal';
@@ -14,11 +16,14 @@ import TableRow from './TableRow';
 
 const UsersTable = () => {
   const dispatch = useAppDispatch();
+  const handleError = useErrorHandler();
 
   const { data: users, isLoading, offset, hasMoreItems } = useAppSelector(selectUsers);
 
   const fetchMoreData = async () => {
-    dispatch(getAllUsersPagination(offset));
+    dispatch(getAllUsersPagination(offset)).unwrap().catch((e) => {
+      handleError(e.message);
+    });
   };
 
   const [open, setOpen] = useState(false);
@@ -30,10 +35,9 @@ const UsersTable = () => {
     return <Loader />;
   }
 
-  // TODO: delete div
   return (
     <>
-      <div id="scrollableDiv" style={{ height: '600px', overflowY: 'scroll' }}>
+      <Box id="scrollableDiv" style={{ height: '600px', overflowY: 'scroll' }}>
         <InfiniteScroll
           dataLength={users.length}
           next={fetchMoreData}
@@ -47,7 +51,7 @@ const UsersTable = () => {
             ))}
           </StyledTable>
         </InfiniteScroll>
-      </div>
+      </Box>
       { open && <UserReports open={open} handleClose={handleClose} />}
     </>
   );
