@@ -10,6 +10,7 @@ import { IReportInfo } from '@features/reports/types';
 import { getAllUsers } from '@features/users/actions';
 import { selectUsers } from '@features/users/selectors';
 import EmptyState from '@containers/common/EmptyState';
+import useErrorHandler from '@customHooks/useErrorHandler';
 import useDispatchWithErrorHandler from '@customHooks/useDispatchWithErrorHandler';
 
 import InputsTable from '../components/AddTable';
@@ -20,11 +21,16 @@ const EditComponent = () => {
   const [reportsInfo, setReportsInfo] = useState<IReportInfo | null>(null);
   const { isLoading } = useAppSelector(selectReports);
   const { allUsers, isLoading: userLoading } = useAppSelector(selectUsers);
+  const handleError = useErrorHandler();
 
   useMount(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers()).catch((e) => {
+      handleError(e.message);
+    });
     dispatch(getReportById(id)).then((data) => {
       setReportsInfo(data);
+    }).catch((e) => {
+      handleError(e.message);
     });
   });
 
@@ -33,8 +39,11 @@ const EditComponent = () => {
   }
 
   return (
-    allUsers.length ? (reportsInfo && <InputsTable reportsInfo={reportsInfo} />)
-      : <EmptyState text="There is no user. Please add a new one to proceed" />
+    allUsers.length ? (
+      <>
+        {reportsInfo && <InputsTable reportsInfo={reportsInfo} />}
+      </>
+    ) : <EmptyState text="There is no user. Please add a new one to proceed" />
   );
 };
 
