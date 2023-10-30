@@ -3,27 +3,22 @@ import { memo, useCallback } from 'react';
 import DeleteBtn from '@containers/common/Table/components/DeleteBtn';
 import RowTitle from '@containers/common/Table/components/EditBtn';
 import { StyledTableCell, StyledTableRow } from '@containers/common/Table/styled';
-import { useAppDispatch } from '@features/app/hooks';
 import { deleteReport, getAllReports } from '@features/reports/actions';
 import { formattedDate } from '@utils/helpers';
 import { IReportInfo } from '@features/reports/types';
-import useErrorHandler from '@customHooks/useErrorHandler';
+import useDispatchWithErrorHandler from '@customHooks/useDispatchWithErrorHandler';
 
 interface ITableRow extends IReportInfo {
   isUserPage?: boolean;
 }
 
 const TableRow = ({ id, title, userId, dateCreated, isUserPage = false }: ITableRow) => {
-  const dispatch = useAppDispatch();
-  const handleError = useErrorHandler();
+  const dispatch = useDispatchWithErrorHandler();
 
   const deleteAction = useCallback(() => {
-    dispatch(deleteReport(id)).unwrap().then(() => {
+    dispatch(deleteReport(id)).then(() => {
       dispatch(getAllReports());
-    }).catch((e) => {
-      handleError(e.message);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, dispatch]);
 
   return (

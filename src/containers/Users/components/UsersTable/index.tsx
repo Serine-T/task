@@ -2,26 +2,27 @@ import { memo, useState } from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import StyledTable from '@containers/common/Table';
-import { useAppDispatch, useAppSelector } from '@features/app/hooks';
+import { useAppSelector } from '@features/app/hooks';
 import { getAllUsersPagination } from '@features/users/actions';
 import { selectUsers } from '@features/users/selectors';
 import Loader from '@containers/common/Loader';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import useDispatchWithErrorHandler from '@customHooks/useDispatchWithErrorHandler';
 
 import { headCells } from './helpers';
 import UserReports from '../UserModal';
 import TableRow from './TableRow';
 
 const UsersTable = () => {
-  const dispatch = useAppDispatch();
-
+  const dispatch = useDispatchWithErrorHandler();
   const { data: users, isLoading, offset, hasMoreItems } = useAppSelector(selectUsers);
+  const [open, setOpen] = useState(false);
 
   const fetchMoreData = async () => {
     dispatch(getAllUsersPagination(offset));
   };
 
-  const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
@@ -30,10 +31,9 @@ const UsersTable = () => {
     return <Loader />;
   }
 
-  // TODO: delete div
   return (
     <>
-      <div id="scrollableDiv" style={{ height: '600px', overflowY: 'scroll' }}>
+      <Box id="scrollableDiv" style={{ height: '600px', overflowY: 'scroll' }}>
         <InfiniteScroll
           dataLength={users.length}
           next={fetchMoreData}
@@ -47,7 +47,7 @@ const UsersTable = () => {
             ))}
           </StyledTable>
         </InfiniteScroll>
-      </div>
+      </Box>
       { open && <UserReports open={open} handleClose={handleClose} />}
     </>
   );

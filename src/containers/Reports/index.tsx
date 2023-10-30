@@ -1,7 +1,7 @@
 import { memo, useEffect } from 'react';
 
 import StyledTable from '@containers/common/Table';
-import { useAppDispatch, useAppSelector } from '@features/app/hooks';
+import { useAppSelector } from '@features/app/hooks';
 import Loader from '@containers/common/Loader';
 import { selectReports } from '@features/reports/selectors';
 import { getAllReports } from '@features/reports/actions';
@@ -13,7 +13,7 @@ import { getAllUsers } from '@features/users/actions';
 import PAGE_ROUTES from '@routes/routingEnum';
 import PageTitle from '@containers/common/PageTitle';
 import EmptyState from '@containers/common/EmptyState';
-import useErrorHandler from '@customHooks/useErrorHandler';
+import useDispatchWithErrorHandler from '@customHooks/useDispatchWithErrorHandler';
 
 import { headCells } from './helpers';
 import SearchSection from './components/SearchSection';
@@ -21,35 +21,27 @@ import { IFiltersForm } from './components/SearchSection/helpers';
 import TableRow from './components/TableRow';
 
 const ReportsTable = () => {
-  const dispatch = useAppDispatch();
+  const dispatchWithErrorHandler = useDispatchWithErrorHandler();
   const { data: reports, isLoading } = useAppSelector(selectReports);
   const { isLoading: usersLoading, allUsers } = useAppSelector(selectUsers);
   const location = useLocation();
   const params = queryString.parse(location.search);
-  const handleError = useErrorHandler();
-
   const { userId = '' } = params as IFiltersForm;
 
   useMount(() => {
-    dispatch(getAllUsers()).unwrap().catch((e) => {
-      handleError(e.message);
-    });
+    dispatchWithErrorHandler(getAllUsers());
   });
 
   useEffect(() => {
-    dispatch(getAllReports(userId)).unwrap().catch((e) => {
-      handleError(e.message);
-      console.log('eetr', e.message);
-    });
+    dispatchWithErrorHandler(getAllReports(userId));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId, dispatch]);
+  }, [userId]);
 
   if (isLoading || usersLoading) {
     return <Loader />;
   }
 
   return (
-
     <>
       <PageTitle
         title="Reports"

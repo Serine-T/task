@@ -1,5 +1,5 @@
 import PAGE_ROUTES from '@routes/routingEnum';
-import { useAppDispatch, useAppSelector } from '@features/app/hooks';
+import { useAppSelector } from '@features/app/hooks';
 import { getAllUsersPagination } from '@features/users/actions';
 import { selectUsers } from '@features/users/selectors';
 import Loader from '@containers/common/Loader';
@@ -8,11 +8,12 @@ import PageTitle from '@containers/common/PageTitle';
 import EmptyState from '@containers/common/EmptyState';
 import useUnMount from '@customHooks/useUnMount';
 import { resetUsers } from '@features/users/slice';
+import useDispatchWithErrorHandler from '@customHooks/useDispatchWithErrorHandler';
 
 import UsersTable from './components/UsersTable';
 
 const Users = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatchWithErrorHandler();
   const { data: users, isLoading } = useAppSelector(selectUsers);
 
   useMount(() => {

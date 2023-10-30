@@ -1,4 +1,3 @@
-// hooks/useDispatchWithErrorHandler.ts
 import { useAppDispatch } from '@features/app/hooks';
 import useErrorHandler from '@customHooks/useErrorHandler';
 
@@ -13,7 +12,6 @@ const useDispatchWithErrorHandler = () => {
       return result;
     } catch (e: any) {
       handleError(e.message);
-      throw e;
     }
   };
 

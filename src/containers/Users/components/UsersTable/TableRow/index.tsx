@@ -3,34 +3,30 @@ import { Dispatch, SetStateAction, memo, useCallback } from 'react';
 import DeleteBtn from '@containers/common/Table/components/DeleteBtn';
 import RowTitle from '@containers/common/Table/components/EditBtn';
 import { StyledTableCell, StyledTableRow } from '@containers/common/Table/styled';
-import { useAppDispatch } from '@features/app/hooks';
 import { deleteReport, getAllReports } from '@features/reports/actions';
 import { formattedDate } from '@utils/helpers';
 import { IUserInfo } from '@features/users/types';
 import { useNavigate } from 'react-router-dom';
 import { StyledUnderLinedText } from '@containers/common/StyledTypography/styled';
-import useErrorHandler from '@customHooks/useErrorHandler';
+import useDispatchWithErrorHandler from '@customHooks/useDispatchWithErrorHandler';
 
 interface ITableRow extends IUserInfo {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const TableRow = ({ id, name, email, dateJoined, setOpen }: ITableRow) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatchWithErrorHandler();
   const navigate = useNavigate();
-  const handleError = useErrorHandler();
 
   const deleteAction = useCallback(() => {
-    dispatch(deleteReport(id)).unwrap().then(() => {
+    dispatch(deleteReport(id)).then(() => {
       dispatch(getAllReports());
-    }).catch((e) => {
-      handleError(e.message);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, dispatch]);
+  }, [id]);
 
   const handleOpen = () => {
-    dispatch(getAllReports(id)).unwrap().then((data) => {
+    dispatch(getAllReports(id)).then((data) => {
       if (data.length) {
         setOpen(true);
         navigate(`/users?userId=${id}`);
