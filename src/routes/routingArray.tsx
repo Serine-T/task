@@ -13,10 +13,10 @@ import PAGE_ROUTES from './routingEnum';
 
 export const routingArray: RouteObject[] = [
   { path: PAGE_ROUTES.NOT_FOUND, element: <NotFound /> },
+  { path: PAGE_ROUTES.HOME, element: <Navigate to={PAGE_ROUTES.ANALYTICS} /> },
   {
     element: <Layout />,
     children: [
-      { path: PAGE_ROUTES.HOME, element: <Navigate to={PAGE_ROUTES.ANALYTICS} /> },
       { path: PAGE_ROUTES.ANALYTICS, element: <Analytics /> },
       {
         path: PAGE_ROUTES.USERS,

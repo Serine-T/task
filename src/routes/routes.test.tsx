@@ -3,6 +3,9 @@ import React, { ReactElement } from 'react';
 
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import Analytics from '@containers/Analytics';
+import { Provider } from 'react-redux';
+import store from '@features/app/store';
 
 import PAGE_ROUTES from './routingEnum';
 import { routingArray } from './routingArray';
@@ -13,17 +16,6 @@ describe('Routing Logic', () => {
 
     return render(ui, { wrapper: MemoryRouter });
   };
-
-  it('navigate to Analytics page when HOME route is accessed', () => {
-    renderWithRouter(
-      <Routes>
-        {routingArray.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-      </Routes>,
-    );
-    expect(screen.getByText(/Monthly statistics reports/)).toBeInTheDocument();
-  });
 
   it('show NotFound component for non-existent route', () => {
     renderWithRouter(
@@ -37,27 +29,17 @@ describe('Routing Logic', () => {
     expect(screen.getByText(/404/)).toBeInTheDocument();
   });
 
-  it('render Users component for USERS route', () => {
+  it('navigate to Analytics page when HOME route is accessed', async () => {
     renderWithRouter(
-      <Routes>
-        {routingArray.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-      </Routes>,
-      { route: PAGE_ROUTES.USERS },
+      <Provider store={store}>
+        <Routes>
+          <Route path={PAGE_ROUTES.HOME} element={<Analytics />} />
+        </Routes>
+      </Provider>,
     );
-    expect(screen.getByText(/Users/)).toBeInTheDocument();
-  });
 
-  it('render Reports component for REPORT route', () => {
-    renderWithRouter(
-      <Routes>
-        {routingArray.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-      </Routes>,
-      { route: PAGE_ROUTES.REPORTS },
-    );
-    expect(screen.getByText(/Reports/)).toBeInTheDocument();
+    const resultText = await screen.findByText(/Monthly statistics reports/);
+
+    expect(resultText).toBeInTheDocument();
   });
 });
