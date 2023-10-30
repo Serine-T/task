@@ -15,8 +15,6 @@ const Layout = () => {
   const [open, setOpen] = useState(false);
   const { errorMessage } = useAppSelector(selectErrors);
 
-  console.log('errorMessage', errorMessage);
-
   return (
     <StyledRoot>
       {isMobile && <HeaderSection onOpenNav={() => setOpen(true)} />}
