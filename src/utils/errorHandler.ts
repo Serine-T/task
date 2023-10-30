@@ -2,12 +2,12 @@ import { errorMessages } from './errorMessages';
 import { ErrorType } from './types';
 
 export const customErrorHandling = (error: any): ErrorType => {
-  const errorMainInfo = error?.data;
-  let message = errorMainInfo?.message as string;
+  const statusText = error?.statusText;
+  let message = statusText as string;
 
-  if (message in errorMessages) {
-    message = errorMessages[message];
+  if (statusText in errorMessages) {
+    message = errorMessages[statusText];
   }
 
-  return { ...errorMainInfo, message } as ErrorType;
+  return { message } as ErrorType;
 };

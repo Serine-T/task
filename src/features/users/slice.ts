@@ -1,4 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit';
+import { setErrorMessage } from '@features/errors/slice';
 
 import { IState } from './types';
 import { addUser, editUser, getAllUsers, getAllUsersPagination, getUserById } from './actions';
@@ -41,8 +42,9 @@ const usersSlice = createSlice({
         state.hasMoreItems = false;
       }
     });
-    builder.addCase(getAllUsersPagination.rejected, (state) => {
+    builder.addCase(getAllUsersPagination.rejected, (state, { payload }) => {
       state.isLoading = false;
+      console.log('payload', payload);
     });
 
     builder.addCase(getAllUsers.pending, (state) => {
@@ -62,8 +64,9 @@ const usersSlice = createSlice({
     builder.addCase(getUserById.fulfilled, (state) => {
       state.isLoading = false;
     });
-    builder.addCase(getUserById.rejected, (state) => {
+    builder.addCase(getUserById.rejected, (state, { payload }) => {
       state.isLoading = false;
+      setErrorMessage(payload.message);
     });
 
     builder.addCase(editUser.pending, (state) => {

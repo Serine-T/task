@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { setErrorMessage } from '@features/errors/slice';
 
 import { IState } from './types';
 import { addReport, editReport, getAllReports, getReportById } from './actions';
@@ -31,8 +32,11 @@ const reportsSlice = createSlice({
     builder.addCase(getReportById.fulfilled, (state) => {
       state.isLoading = false;
     });
-    builder.addCase(getReportById.rejected, (state) => {
+    builder.addCase(getReportById.rejected, (state, { payload }) => {
       state.isLoading = false;
+      console.log('getReportById');
+      console.log('payload', payload);
+      setErrorMessage(payload.message);
     });
 
     builder.addCase(editReport.pending, (state) => {

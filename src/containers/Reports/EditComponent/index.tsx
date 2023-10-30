@@ -26,7 +26,7 @@ const EditComponent = () => {
     dispatch(getAllUsers());
     dispatch(getReportById(id as string)).unwrap().then((data) => {
       setReportsInfo(data);
-    }).catch(() => navigate(PAGE_ROUTES.REPORTS));
+    }).catch(() => {});
   });
 
   if (userLoading || isLoading) {

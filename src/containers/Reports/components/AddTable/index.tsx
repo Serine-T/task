@@ -43,8 +43,6 @@ const InputsTable = ({ reportsInfo }: IInputsTable) => {
       navigate(PAGE_ROUTES.REPORTS);
     }).catch((e) => {
       console.log(e); // TODO
-
-      navigate(PAGE_ROUTES.REPORTS);
     });
   };
 
